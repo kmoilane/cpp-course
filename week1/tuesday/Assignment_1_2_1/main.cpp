@@ -22,7 +22,7 @@ int main()
     std::string str;
     std::getline(std::cin >> std::ws, str);
     std::cout << "You entered:\n" << str << "\nWhich in reverse is: \n"
-        << reverseString(str) << '\n';
+        << reverse_string(str) << '\n';
 
         return 0;
 }
