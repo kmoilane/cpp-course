@@ -11,36 +11,36 @@ The git workflow is somewhat following:
 
 1. On command line, go to the directory, where this repository exists. 
     To make sure you're in the main branch, enter the following command<br>
-```
+    ```
     git checkout main
-```
+    ```
     You can check the active branch with<br>
-```
+    ```
     git branch
-```
+    ```
 2. Create a new branch from main with and switch to the new branch<br>
-```
+    ```
     git checkout -b <branch_name>
-```
+    ```
     for example:<br>
-```
+    ```
     git checkout -b Assignment_1
-```
+    ```
     to create a branch named Assignment_1.
 3. Create a new directory and file and add it to the staging area. For example let's create
    Assignment_1 folder and file main.cpp inside, which we can then add:<br>
-```
+    ```
    mkdir Assignment_2
    cd Assignment_2
    touch main.cpp
    git add main.cpp
-```
+    ```
     Now we have added main.cpp to the git staging area, and we have moved in to the
     Assignment_2 directory on our terminal.
 4. We can create a git commit with branch init message<br>
-```
+    ```
     git commit -m "Initializing branch"
-```
+    ```
 5. We code our program and do adds/commits when we progress
 6. When program is ready, we push the content in our local repository to the
    remote repository.
