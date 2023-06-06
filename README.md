@@ -65,9 +65,9 @@ The git workflow is somewhat following:
 
 11. Now we can merge it to the main branch. The Merge button can be found from,
     for example:<br>
-    <https://github.com/kmoilane/cpp-course/pull/5>
+    [https://github.com/kmoilane/cpp-course/pull/5](https://github.com/kmoilane/cpp-course/pull/5)
     Scroll down a bit and there should be green "Merge pull request" button
-    
+
 12. This new branch has now been merged to main branch, which means the created
     files are now also in main branch.
 
