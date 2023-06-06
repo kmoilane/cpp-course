@@ -7,13 +7,11 @@
 */
 std::string reverse_string(std::string str)
 {
-    std::string revStr {};
+    std::string rev_str {};
     for (int i = str.size(); i >= 0; --i)
-    {
-        revStr += str[i];
-    }
+        rev_str += str[i];
 
-    return revStr;
+    return rev_str;
 }
 
 int main()
@@ -24,5 +22,5 @@ int main()
     std::cout << "You entered:\n" << str << "\nWhich in reverse is: \n"
         << reverse_string(str) << '\n';
 
-        return 0;
+    return 0;
 }
