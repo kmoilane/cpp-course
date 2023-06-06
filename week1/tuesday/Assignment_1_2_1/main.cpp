@@ -5,7 +5,7 @@
 **  This function takes a string as an argument, and returns reversed version
 **  of the string.
 */
-std::string reverseString(std::string str)
+std::string reverse_string(std::string str)
 {
     std::string revStr {};
     for (int i = str.size(); i >= 0; --i)
