@@ -20,7 +20,7 @@ void dump_arr(int* arr)
 
 int main()
 {
-    int *arr { new int[5]{ 1, 2, 3, 4, 5 } };
+    int* arr { new int[5]{ 1, 2, 3, 4, 5 } };
 
     dump_arr(arr);
 
