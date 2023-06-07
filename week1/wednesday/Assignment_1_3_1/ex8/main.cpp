@@ -10,17 +10,16 @@
 
 void dump_arr(int* arr)
 {
-    int i { 0 };
-    while (arr[i])
+   // int i { -1 };
+    while (*arr)
     {
-        std::cout << arr[i] << '\n';
-        ++i;
+        std::cout << *arr++ << '\n';
     }
 }
 
 int main()
 {
-    int* arr { new int[5]{ 1, 2, 3, 4, 5 } };
+    int* arr { new int[5]{ 1, 2, 3 } };
 
     dump_arr(arr);
 
