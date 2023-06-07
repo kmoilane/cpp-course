@@ -22,4 +22,5 @@ int main()
     // but this function is in global scope so we can call it here
     declare_and_print_variable();
 
+    return 0;
 } // <- end of main functions local scope
