@@ -16,5 +16,6 @@ int main()
     }
     // i no longer accessible, it had local scope within the loop, not outside
     // std::cout << i << std::endl; this would not compile here
+    return 0;
 }
 
