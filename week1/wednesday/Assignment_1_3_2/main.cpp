@@ -34,7 +34,7 @@ Client*                 g_logged_user { nullptr };
 int                     g_highest_acc { 0 };
 int                     g_highest_user { 0 };
 
-Client add_Client(std::string new_name,
+Client add_client(std::string new_name,
 std::string addr, std::string phone)
 {
     Client new_user {};
@@ -68,7 +68,7 @@ int add_user()
     std::string phone_num {};
     std::getline(std::cin >> std::ws, phone_num);
 
-    Client new_user { add_Client(name, address, phone_num) };
+    Client new_user { add_client(name, address, phone_num) };
 
     g_bank.push_back(new_user);
     
@@ -101,8 +101,9 @@ void view_balance()
         std::cout << "You have "
             << acc.balance
             << "€ on account number: "
-            << acc.account_num << "\n\n";
+            << acc.account_num << "\n";
     }
+    std::cout << '\n';
 
 }
 
@@ -119,7 +120,7 @@ void deposit()
     {
         std::cout << "Account number: "
         << g_logged_user->accounts[i].account_num
-        << "\t->\tPress " << i + 1;
+        << "\t->\tPress " << i + 1 << '\n';
     }
 
     size_t option {};
@@ -133,17 +134,12 @@ void deposit()
             clear_cin();
         else
         {
-            for (auto client : g_bank)
-            {
-                if (client.customer_num == g_logged_user->customer_num)
-                {
-                    client.accounts[option - 1].balance += i;
-                    std::cout << "\nYou have deposited " << i << "€\n\n";
-                    break ;
-                }
-            }
+            g_logged_user->accounts[option - 1].balance += i;
+            std::cout << "\nYou have deposited " << i << "€\n\n";
         }
     }
+    else
+        std::cout << "\nInvalid option!\n\n";
     
 }
 
@@ -152,8 +148,9 @@ void print_ui_options()
     std::cout << "Deposit\t\t->\tPress 1\n";
     std::cout << "Withdraw\t->\tPress 2\n";
     std::cout << "Balance\t\t->\tPress 3\n";
-    std::cout << "Logout\t\t->\tPress 4\n";
-    std::cout << "Quit\t\t->\tPress 5\n";
+    std::cout << "Open Account\t->\tPress 4\n";
+    std::cout << "Logout\t\t->\tPress 5\n";
+    std::cout << "Quit\t\t->\tPress 6\n";
 }
 
 void print_invalid_option()
@@ -165,6 +162,14 @@ void logout()
 {
     std::cout << "\nYou have logged out!\n\n";
     g_logged_user = nullptr;
+}
+
+void open_new_account()
+{
+    Account new_acc { new_account() };
+    g_logged_user->accounts.push_back(new_acc);
+    std::cout << "You have opened a new account with a number of:\n\n\t"
+        << new_acc.account_num << "\n\n";
 }
 
 bool banking_ui()
@@ -190,11 +195,13 @@ bool banking_ui()
         else if (option == 3)
             view_balance();
         else if (option == 4)
+            open_new_account();
+        else if (option == 5)
         {
             logout();
             return 1;
         }
-        else if (option == 5)
+        else if (option == 6)
             return 0;
         else
             print_invalid_option();
@@ -202,30 +209,18 @@ bool banking_ui()
     }
 }
 
-void print_auth_options()
-{
-    std::cout << "Welcome to Brights Bank!\n\n";
-    std::cout << "Login\t\t->\tPress 1\n";
-    std::cout << "Register\t->\tPress 2\n";
-    std::cout << "Quit\t\t->\tPress 3\n";
-}
-
 int get_login_info()
 {
     std::cout << "Enter your customer number: ";
-    int num {};
     while (true)
     {
+        int num {};
         std::cin >> num;
 
         if (!std::cin)
-        {
             clear_cin();
-        }
         else
-        {
             return num;
-        }
     }
 }
 
@@ -249,9 +244,7 @@ bool sign_up()
     int customer_number { add_user() };
     if (customer_number > 0)
     {
-        std::cout << "\nCongratualtions, you have registered to Brights Bank!\n";
-        std::cout << "Your customer number is: " << customer_number << '\n';
-        std::cout << "You can use it to login to your account!\n";
+        sign_up_success_prints(customer_number);
         return true;
     }
     std::cout << "Something went wrong, try again!\n";
@@ -267,11 +260,8 @@ int authentication()
         int option {};
         std::cin >> option;
         if (!std::cin)
-        {
             clear_cin();
-            continue ;
-        }
-        if (option == 1 && login())
+        else if (option == 1 && login())
             return 1;
         else if (option == 2 && sign_up())
             continue ;
