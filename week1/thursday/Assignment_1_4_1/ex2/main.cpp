@@ -15,16 +15,8 @@
 int factorial(int n)
 {
     assert(n >= 0 && "Factorial is not defined for negative numbers");
-    if (n == 0)
-        return 1;
     
-    int result { n };
-    while ((n - 1) > 0)
-    {
-        result *= n - 1;
-        --n;
-    }
-    return result;
+    return n > 1 ? n * factorial(n-1) : 1;
 }
 
 int main()
