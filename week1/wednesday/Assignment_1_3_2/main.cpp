@@ -24,30 +24,44 @@
 
 #include "./bank.h"
 #include "./structs.h"
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <limits>
 
-std::vector<Client>     g_bank{};
-Client*                 g_logged_user { nullptr };
-int                     g_highest_acc { 0 };
-int                     g_highest_user { 0 };
+/*
+**  Global variables to easily access data around the program.
+**  highest_acc tracks the highest account number, and is incremented when
+**  new accoun is created to keep them unique. g_highest_user does the same
+**  with customer number.
+*/
+std::vector<Client> g_bank{};
+Client*             g_logged_user { nullptr };
+int                 g_highest_acc { 0 };
+int                 g_highest_user { 0 };
 
-Client add_client(std::string new_name,
-std::string addr, std::string phone)
+
+/*
+**  Creates a new Client with given information and returns it
+*/
+Client add_client(std::string new_name,std::string addr, std::string phone)
 {
     Client new_user {};
-    new_user.name = new_name;
-    new_user.address = addr;
-    new_user.phone_num = phone;
-    new_user.customer_num = ++g_highest_user;
+    new_user.name           =   new_name;
+    new_user.address        =   addr;
+    new_user.phone_num      =   phone;
+    new_user.customer_num   =   ++g_highest_user;
     
     Account account { new_account() };
     new_user.accounts.push_back(account);
     return new_user;
 }
 
+/*
+**  Creates a new bank account and sets balance to 0
+*/
 Account new_account()
 {
     Account new_account {};
@@ -56,16 +70,23 @@ Account new_account()
     return new_account;
 }
 
+/*
+**  Prompts user for user information and creates new Client which is pushed
+**  to the global g_bank vector. Returns new users customer_num to caller.
+*/
 int add_user()
 {
-    std::cout << "Enter your name: ";
     std::string name {};
-    std::getline(std::cin >> std::ws, name);
-    std::cout << "Enter your address: ";
     std::string address {};
-    std::getline(std::cin >> std::ws, address);
-    std::cout << "Enter your phone number: ";
     std::string phone_num {};
+    
+    std::cout << "Enter your name: ";
+    std::getline(std::cin >> std::ws, name);
+
+    std::cout << "Enter your address: ";
+    std::getline(std::cin >> std::ws, address);
+
+    std::cout << "Enter your phone number: ";
     std::getline(std::cin >> std::ws, phone_num);
 
     Client new_user { add_client(name, address, phone_num) };
@@ -75,6 +96,10 @@ int add_user()
     return new_user.customer_num;
 }
 
+/*
+**  Finds user(Client) based on customer_num from global g_bank if found
+**  returns the pointer to Client in g_bank, otherwise nullptr
+*/
 Client* find_user(int num)
 {
     for (Client& client : g_bank)
@@ -87,35 +112,41 @@ Client* find_user(int num)
     return nullptr;
 }
 
+/*
+**  Clears and ignores invalid input to std::cin
+*/
 void clear_cin()
 {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+/*
+**  Prints all the accounts of logged user and prints their balance
+*/
 void view_balance()
 {
     std::cout << "\nAccount's balance\n\n";
+
     for (Account acc : g_logged_user->accounts)
     {
-        std::cout << "You have "
-            << acc.balance
+        std::cout
+            << "You have " << acc.balance
             << "€ on account number: "
             << acc.account_num << "\n";
     }
     std::cout << '\n';
-
 }
 
-void withdraw()
+/*
+**  This function is called from deposit() and widthraw() functions to get users
+**  input on which account he wants to use. Returns 0 for invalid inputs and
+**  accout number when it's valid
+*/
+size_t select_account()
 {
-    std::cout << "\nWithdraw from your bank account\n\n";
-}
+    std::cout << "Select which account you want to use:\n";
 
-void deposit()
-{
-    std::cout << "\nDeposit to your bank account\n\n";
-    std::cout << "Select which account you want to deposit to:\n";
     for (size_t i = 0; i < g_logged_user->accounts.size(); ++i)
     {
         std::cout << "Account number: "
@@ -125,45 +156,125 @@ void deposit()
 
     size_t option {};
     std::cin >> option;
-    if (option > 0 && option <= g_logged_user->accounts.size())
+
+    if (!std::cin)
     {
-        std::cout << "Enter amount: ";
-        int i {};
-        std::cin >> i;
-        if (!std::cin)
-            clear_cin();
-        else if (i > 0)
+        clear_cin();
+        return 0;
+    }
+    if (option > 0 && option <= g_logged_user->accounts.size())
+        return option;
+    else 
+        return 0;
+}
+
+/*
+**  Prompts user for the int amount. This is called from deposit()
+**  and withdraw(). Returns -1 for non int input and 0 for below 1, otherwise
+**  returns the given amount
+*/
+int ask_amount()
+{
+    std::cout << "Enter amount: ";
+    int amount {};
+    std::cin >> amount;
+    if (!std::cin)
+    {
+        clear_cin();
+        return -1;
+    }
+    else if (amount > 0)
+    {
+        return amount;
+    }
+    return 0;
+}
+
+/*
+**  Gets account and amount from user, and withdraws that from the account if
+**  account has enough funds.
+*/
+void withdraw()
+{
+    std::cout << "\nWithdraw from your bank account\n\n";
+
+    size_t option { select_account() };
+
+    if (option == 0)
+        print_invalid_option();
+    else
+    {
+        int amount { ask_amount() };
+        if (amount == -1)
+            print_invalid_option();
+        else if (amount == 0)
+            print_invalid_amount();
+        else
         {
-            g_logged_user->accounts[option - 1].balance += i;
-            std::cout << "\nYou have deposited " << i << "€\n\n";
+            if ((g_logged_user->accounts[option -1].balance - amount) < 0)
+                std::cout << "\nNot enough funds on the selected account!\n\n";
+            else
+            {
+                g_logged_user->accounts[option - 1].balance -= amount;
+                std::cout << "\nYou have withdrawn " << amount << "€\n\n";
+            }
         }
     }
-    else
-        std::cout << "\nInvalid option!\n\n";
-    
 }
 
-
-
-void print_invalid_option()
+/*
+**  Gets account and amount from user and makes deposit if values are valid
+*/
+void deposit()
 {
-    std::cout << "\nThat's not an option, try again!\n\n";
+    std::cout << "\nDeposit to your bank account\n\n";
+    size_t option { select_account() };
+
+    if (option == 0)
+    {
+        print_invalid_option();
+    }
+    else
+    {
+        int amount { ask_amount() };
+        if (amount == -1)
+            print_invalid_option();
+        else if (amount == 0)
+        {
+            std::cout << "\nYou need to enter positive value over 0\n";
+        }
+        else
+        {
+            g_logged_user->accounts[option - 1].balance += amount;
+            std::cout << "\nYou have deposited " << amount << "€\n\n";
+        }
+    } 
 }
 
+/*
+**  Sets g_logged_user to point to nullptr
+*/
 void logout()
 {
     std::cout << "\nYou have logged out!\n\n";
     g_logged_user = nullptr;
 }
 
+/*
+**  This function is called when user opens a new account. It creates the acc
+**  and pushes it to the clients account vector.
+*/
 void open_new_account()
 {
     Account new_acc { new_account() };
     g_logged_user->accounts.push_back(new_acc);
-    std::cout << "You have opened a new account with a number of:\n\n\t"
+    std::cout << "You have opened a new account with a number of:\n\n"
         << new_acc.account_num << "\n\n";
 }
 
+/*
+**  Prints UI option for logged in users and manages input in that menu
+*/
 bool banking_ui()
 {
     std::cout << "\nWelcome to Seers Bank " << g_logged_user->name
@@ -200,6 +311,10 @@ bool banking_ui()
     }
 }
 
+
+/*
+**  Prompts the user in the login interface for a customer number.
+*/
 int get_login_info()
 {
     std::cout << "Enter your customer number: ";
@@ -215,6 +330,10 @@ int get_login_info()
     }
 }
 
+/*
+**  Gets the customer number and checks if it's registered. If registered
+**  g_logged_user points now to the matching Client, otherwise to nullptr
+*/
 bool login()
 {
     std::cout << "User login\n\n";
@@ -230,6 +349,9 @@ bool login()
         return true;
 }
 
+/*
+**  Calls add_user to create a new client and prints information
+*/
 bool sign_up()
 {
     int customer_number { add_user() };
@@ -243,6 +365,9 @@ bool sign_up()
         
 }
 
+/*
+**  This function handles auhtentication UI and user input in it.
+*/
 int authentication()
 {
     std::cout << "Welcome to Seers Bank!\n\n";
@@ -263,6 +388,33 @@ int authentication()
     return 0;
 }
 
+/*
+**  This function creates a file from the g_bank global variable in csv format.
+**  It is only called at the end of the program and overwrites
+**  itself on each run
+*/
+void create_file()
+{
+    std::string file_path{ "bank_db" };
+    std::ofstream file_object(file_path);
+    
+    for (Client client : g_bank)
+    {
+        file_object
+            << client.customer_num << ','
+            << std::quoted(client.name) << ','
+            << std::quoted(client.address) << ','
+            << std::quoted(client.phone_num) << ',';
+            for (Account acc : client.accounts)
+            {
+                file_object
+                    << acc.account_num << ','
+                    << acc.balance << ',';
+            }
+            file_object << '\n';
+    }
+}
+
 int main()
 {
     while (true)
@@ -273,10 +425,15 @@ int main()
             if(banking_ui())
                 continue ;
             else
+            {
+                create_file();
                 return 0;
+            }
         }
         else if (auth == 0)
+        {
+            create_file();
             return 0;
+        }
     }
 }
-

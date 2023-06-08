@@ -1,3 +1,8 @@
+/*
+**  This file includes some simple prints that are either used multiple times,
+**  or are here to clarify the functions they are called from.
+*/
+
 #include "./structs.h"
 #include "./bank.h"
 #include <iostream>
@@ -25,4 +30,14 @@ void print_ui_options()
     std::cout << "Open Account\t->\tPress 4\n";
     std::cout << "Logout\t\t->\tPress 5\n";
     std::cout << "Quit\t\t->\tPress 6\n";
+}
+
+void print_invalid_option()
+{
+    std::cout << "\nThat's not an option, try again!\n\n";
+}
+
+void print_invalid_amount()
+{
+    std::cout << "\nYou need to enter positive value over 0\n\n";
 }
