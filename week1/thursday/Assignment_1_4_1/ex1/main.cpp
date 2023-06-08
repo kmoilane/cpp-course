@@ -9,6 +9,12 @@
 #include <string>
 #include <cctype>
 
+
+/*
+**  This function loops through string, checks if the character is first
+**  letter in a string or it has whitespace before it and capitalizes those
+**  letters. Other letters go to lower case and nums etc are copied as they are.
+*/
 std::string capitalize_string(std::string str)
 {
     std::string return_str {};
