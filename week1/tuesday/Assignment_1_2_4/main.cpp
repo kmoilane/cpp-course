@@ -73,6 +73,11 @@ void print_time_diff(Time start, Time end, Time diff)
 
 int main()
 {
+
+    /*
+    **  These loops are only to try some different inputs.
+    **  They can be removed or replaced!
+    */
     for (int i = 0; i < 60; i+=11)
     {
         Time start { 20, 45 };
