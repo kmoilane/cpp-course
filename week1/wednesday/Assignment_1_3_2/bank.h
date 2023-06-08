@@ -23,6 +23,6 @@ bool    login();
 bool    sign_up();
 int     authentication();
 int     add_user();
-void    sign_up_success_prints(int customer_number);
+void    print_sign_up_success(int customer_number);
 
 #endif

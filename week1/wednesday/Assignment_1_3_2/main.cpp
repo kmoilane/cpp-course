@@ -132,7 +132,7 @@ void deposit()
         std::cin >> i;
         if (!std::cin)
             clear_cin();
-        else
+        else if (i > 0)
         {
             g_logged_user->accounts[option - 1].balance += i;
             std::cout << "\nYou have deposited " << i << "€\n\n";
@@ -143,15 +143,7 @@ void deposit()
     
 }
 
-void print_ui_options()
-{
-    std::cout << "Deposit\t\t->\tPress 1\n";
-    std::cout << "Withdraw\t->\tPress 2\n";
-    std::cout << "Balance\t\t->\tPress 3\n";
-    std::cout << "Open Account\t->\tPress 4\n";
-    std::cout << "Logout\t\t->\tPress 5\n";
-    std::cout << "Quit\t\t->\tPress 6\n";
-}
+
 
 void print_invalid_option()
 {
@@ -174,7 +166,7 @@ void open_new_account()
 
 bool banking_ui()
 {
-    std::cout << "\nWelcome to Brights Bank " << g_logged_user->name
+    std::cout << "\nWelcome to Seers Bank " << g_logged_user->name
         << "!\nHow can we serve you today?\n\n";
 
     while (true)
@@ -204,8 +196,7 @@ bool banking_ui()
         else if (option == 6)
             return 0;
         else
-            print_invalid_option();
-        
+            print_invalid_option();        
     }
 }
 
@@ -244,7 +235,7 @@ bool sign_up()
     int customer_number { add_user() };
     if (customer_number > 0)
     {
-        sign_up_success_prints(customer_number);
+        print_sign_up_success(customer_number);
         return true;
     }
     std::cout << "Something went wrong, try again!\n";
@@ -254,6 +245,7 @@ bool sign_up()
 
 int authentication()
 {
+    std::cout << "Welcome to Seers Bank!\n\n";
     while (true)
     {
         print_auth_options();
