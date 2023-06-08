@@ -71,7 +71,6 @@ int add_user()
     Client new_user { add_Client(name, address, phone_num) };
 
     g_bank.push_back(new_user);
-    g_bank.shrink_to_fit();
     
     return new_user.customer_num;
 }
