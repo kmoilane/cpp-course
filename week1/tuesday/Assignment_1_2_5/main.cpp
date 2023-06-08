@@ -11,9 +11,18 @@ struct Book
 {
     std::string title {};
     std::string author {};
-    long long   isbn {};
+    std::string isbn {};
     int         year {};
     int         quantity {};
+
+    Book(std::string t, std::string a, std::string i, int y, int q)
+    {
+        title = t;
+        author = a;
+        isbn = i;
+        year = y;
+        quantity = q;
+    }
 };
 
 std::vector<Book> library;
@@ -41,18 +50,9 @@ void display_book(std::string title)
 }
 
 /*
-** Adds book to vector
-*/
-void add_book(Book book)
-{
-    library.push_back(book);
-    library.shrink_to_fit();
-}
-
-/*
 ** Removes book based on it's isbn if it exists.
 */
-void remove_book(long long isbn)
+void remove_book(std::string isbn)
 {
     for (size_t i = 0; i < library.size(); ++i)
     {
@@ -71,7 +71,7 @@ void remove_book(long long isbn)
 /*
 ** Returns true if book is found and there's over 0 quantity of books
 */
-bool is_loanable(long long isbn)
+bool is_loanable(std::string isbn)
 {
     for (size_t i = 0; i < library.size(); ++i)
     {
@@ -90,37 +90,34 @@ bool is_loanable(long long isbn)
 void some_tests()
 {
     // Add some books to library
-    add_book(
-        Book("Extreme Ownership", "Jocko Willink", 1000000000000, 2015, 3)
-    );
-    add_book(
-        Book("Hyvän ja pahan tuolla puolen", "Friedrich Nietzsche",
-        1000000000001, 1886, 0)
-    );
-    add_book(
-        Book("How to Win Friends and Influence People", "Dale Carnegie",
-        1000000000002, 1936, 2)
-    );
+    Book book1{"Extreme Ownership", "Jocko Willink", "1000000000000", 2015, 3};
+    Book book2{"Hyvän ja pahan tuolla puolen", "Friedrich Nietzsche", 
+    "1000000000001", 1886, 0 };
+    Book book3{"How to Win Friends and Influence People", "Dale Carnegie",
+        "1000000000002", 1936, 2};
+    library.push_back(book1);
+    library.push_back(book2);
+    library.push_back(book3);
 
     // Testing to display books
     display_book("Juoppuhullun päiväkirja"); // Should not be found
     display_book("Extreme Ownership"); // Should be found
 
     // Testing to see if book is loanable
-    if (is_loanable(1000000000000)) // Should be loanable
+    if (is_loanable("1000000000000")) // Should be loanable
         std::cout << "Is loanable!\n";
     else
         std::cout << "Is not loanable!\n";
-    if (is_loanable(1000000000001)) // Should not be loanable
+    if (is_loanable("1000000000001")) // Should not be loanable
         std::cout << "Is loanable!\n";
     else
         std::cout << "Is not loanable!\n";
     
     // Remove book
-    remove_book(1000000000000); // Should remove the Extreme Ownership
+    remove_book("1000000000000"); // Should remove the Extreme Ownership
 
     // Test to see removed book
-    if (is_loanable(1000000000000)) // Should not be loanable
+    if (is_loanable("1000000000000")) // Should not be loanable
         std::cout << "Is loanable!\n";
     else
         std::cout << "Is not loanable!\n";
