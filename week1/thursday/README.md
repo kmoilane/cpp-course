@@ -1,0 +1,4 @@
+
+# Thursday
+
+## Assert & NDEBUG 
