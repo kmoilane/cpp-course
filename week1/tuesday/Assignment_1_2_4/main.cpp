@@ -75,7 +75,7 @@ int main()
 {
 
     /*
-    **  These loops are only to try some different inputs.
+    **  These loops try some different inputs.
     **  They can be removed or replaced!
     */
     for (int i = 0; i < 60; i+=11)
