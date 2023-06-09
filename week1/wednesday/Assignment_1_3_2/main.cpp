@@ -402,21 +402,71 @@ void create_file()
     {
         file_object
             << client.customer_num << ','
-            << std::quoted(client.name) << ','
-            << std::quoted(client.address) << ','
-            << std::quoted(client.phone_num) << ',';
+            << client.name << ','
+            << client.address << ','
+            << client.phone_num << '\n';
             for (Account acc : client.accounts)
             {
                 file_object
                     << acc.account_num << ','
-                    << acc.balance << ',';
+                    << acc.balance << '\n';
             }
             file_object << '\n';
     }
 }
 
+void load_file()
+{
+    std::ifstream file("bank_db");
+    if (!file)
+        return ;
+
+    std::string line {};
+    Client client;
+    bool reading_accounts = false;
+
+    while (std::getline(file, line))
+    {
+        if (line.empty()) {
+            reading_accounts = false;
+            g_bank.push_back(client);
+            client = Client();
+        }
+        else if (!reading_accounts)
+        {
+            std::istringstream iss(line);
+            std::string customer_num_str {};
+            std::getline(iss, customer_num_str, ',');
+            std::getline(iss, client.name, ',');
+            std::getline(iss, client.address, ',');
+            std::getline(iss, client.phone_num);
+            client.customer_num = std::stoi(customer_num_str);
+            if (client.customer_num > g_highest_user)
+                g_highest_user = client.customer_num;
+            reading_accounts = true;
+        }
+        else
+        {
+            std::istringstream iss(line);
+            Account acc {};
+            std::string acc__num_str {};
+            std::string balance_str {};
+            std::getline(iss, acc__num_str, ',');
+            std::getline(iss, balance_str);
+            acc.account_num = std::stoi(acc__num_str);
+            acc.balance = std::stoi(balance_str);
+            client.accounts.push_back(acc);
+            if (acc.account_num > g_highest_acc)
+                g_highest_acc = acc.account_num;
+        }
+
+    }
+    file.close();
+}
+
 int main()
 {
+    load_file();
     while (true)
     {
         int auth = authentication();
