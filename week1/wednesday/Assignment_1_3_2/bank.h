@@ -4,6 +4,17 @@
 #include "./structs.h"
 #include <iostream>
 
+/*
+**  Evil Global variables to easily access data around the program.
+**  g_highest_acc tracks the highest account number, and is incremented when
+**  new accoun is created to keep them unique. g_highest_user does the same
+**  with user number.
+*/
+inline std::vector<User>   g_bank{};
+inline User*               g_logged_user { nullptr };
+inline int                 g_highest_acc { 0 };
+inline int                 g_highest_user { 0 };
+
 //  File management functions
 void    load_file();
 void    create_file();
@@ -18,10 +29,10 @@ int     get_login_info();
 bool    login();
 
 //  Signup and User creation functions
-Account new_account();
-User    add_client(std::string new_name, std::string addr, std::string phone);
+Account create_account();
+User    create_user(std::string new_name, std::string addr, std::string phone);
 bool    sign_up();
-int     add_user();
+int     ask_sign_up_info();
 
 //  User action functions
 void    deposit();
