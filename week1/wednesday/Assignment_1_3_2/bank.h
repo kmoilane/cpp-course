@@ -5,10 +5,10 @@
 #include <iostream>
 
 Account new_account();
-Client  add_client(std::string new_name, std::string addr, std::string phone);
+User    add_client(std::string new_name, std::string addr, std::string phone);
 bool    banking_ui();
 int     authentication();
-Client* find_user(int num);
+User*   find_user(int num);
 void    clear_cin();
 void    view_balance();
 void    withdraw();

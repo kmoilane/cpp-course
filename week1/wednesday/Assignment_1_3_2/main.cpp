@@ -5,7 +5,7 @@
 // bank account.
 
 // The bank stores the following information. name, address,
-// telephone number and customer number.
+// telephone number and user number.
 
 // The program will have a text based user interface for each action.
 // The user can add or withdraw money, see their account balance,
@@ -16,8 +16,8 @@
 // The account number needs to be unique.
 
 // Exercise 3
-// Update the program to handle more than one customer.
-// The customer number for each created customer must be unique
+// Update the program to handle more than one user.
+// The user number for each created user must be unique
 
 // Exercise 4
 // The program will store account data in a file.
@@ -35,20 +35,20 @@
 **  Global variables to easily access data around the program.
 **  highest_acc tracks the highest account number, and is incremented when
 **  new accoun is created to keep them unique. g_highest_user does the same
-**  with customer number.
+**  with user number.
 */
-std::vector<Client> g_bank{};
-Client*             g_logged_user { nullptr };
+std::vector<User>   g_bank{};
+User*               g_logged_user { nullptr };
 int                 g_highest_acc { 0 };
 int                 g_highest_user { 0 };
 
 
 /*
-**  Creates a new Client with given information and returns it
+**  Creates a new User with given information and returns it
 */
-Client add_client(std::string new_name,std::string addr, std::string phone)
+User add_client(std::string new_name,std::string addr, std::string phone)
 {
-    Client new_user {};
+    User new_user {};
     new_user.name           =   new_name;
     new_user.address        =   addr;
     new_user.phone_num      =   phone;
@@ -71,7 +71,7 @@ Account new_account()
 }
 
 /*
-**  Prompts user for user information and creates new Client which is pushed
+**  Prompts user for user information and creates new User which is pushed
 **  to the global g_bank vector. Returns new users customer_num to caller.
 */
 int add_user()
@@ -89,7 +89,7 @@ int add_user()
     std::cout << "Enter your phone number: ";
     std::getline(std::cin >> std::ws, phone_num);
 
-    Client new_user { add_client(name, address, phone_num) };
+    User new_user { add_client(name, address, phone_num) };
 
     g_bank.push_back(new_user);
     
@@ -97,12 +97,12 @@ int add_user()
 }
 
 /*
-**  Finds user(Client) based on customer_num from global g_bank if found
-**  returns the pointer to Client in g_bank, otherwise nullptr
+**  Finds user based on customer_num from global g_bank if found
+**  returns the pointer to User in g_bank, otherwise nullptr
 */
-Client* find_user(int num)
+User* find_user(int num)
 {
-    for (Client& client : g_bank)
+    for (User& client : g_bank)
     {
         if (client.customer_num == num)
         {
@@ -313,11 +313,11 @@ bool banking_ui()
 
 
 /*
-**  Prompts the user in the login interface for a customer number.
+**  Prompts the user in the login interface for a user number.
 */
 int get_login_info()
 {
-    std::cout << "Enter your customer number: ";
+    std::cout << "Enter your user number: ";
     while (true)
     {
         int num {};
@@ -331,8 +331,8 @@ int get_login_info()
 }
 
 /*
-**  Gets the customer number and checks if it's registered. If registered
-**  g_logged_user points now to the matching Client, otherwise to nullptr
+**  Gets the user number and checks if it's registered. If registered
+**  g_logged_user points now to the matching User, otherwise to nullptr
 */
 bool login()
 {
@@ -396,33 +396,47 @@ int authentication()
 void create_file()
 {
     std::string file_path{ "bank_db" };
-    std::ofstream file_object(file_path);
+    std::ofstream file(file_path);
+
+    if(!file)
+        return ;
     
-    for (Client client : g_bank)
+    for (User client : g_bank)
     {
-        file_object
+        file
             << client.customer_num << ','
             << client.name << ','
             << client.address << ','
             << client.phone_num << '\n';
             for (Account acc : client.accounts)
             {
-                file_object
+                file
                     << acc.account_num << ','
                     << acc.balance << '\n';
             }
-            file_object << '\n';
+            file << '\n';
     }
+
+    file.close();
 }
 
+/*
+**  This function opens the bank_db file and loops through it line by line.
+**  Based on the formatting and order of data in the file, we can take every
+**  part and place it to our User struct in the correct member. After each
+**  User, we push it to our global g_bank vector that holds all Users. We also
+**  update the g_highest_user and g_highest_acc to keep them up to date.
+*/
 void load_file()
 {
-    std::ifstream file("bank_db");
+    std::string file_path{ "bank_db" };
+    std::ifstream file("file_path");
+
     if (!file)
         return ;
 
     std::string line {};
-    Client client;
+    User client;
     bool reading_accounts = false;
 
     while (std::getline(file, line))
@@ -430,7 +444,7 @@ void load_file()
         if (line.empty()) {
             reading_accounts = false;
             g_bank.push_back(client);
-            client = Client();
+            client = User();
         }
         else if (!reading_accounts)
         {
@@ -441,8 +455,10 @@ void load_file()
             std::getline(iss, client.address, ',');
             std::getline(iss, client.phone_num);
             client.customer_num = std::stoi(customer_num_str);
+
             if (client.customer_num > g_highest_user)
                 g_highest_user = client.customer_num;
+
             reading_accounts = true;
         }
         else
@@ -456,6 +472,7 @@ void load_file()
             acc.account_num = std::stoi(acc__num_str);
             acc.balance = std::stoi(balance_str);
             client.accounts.push_back(acc);
+
             if (acc.account_num > g_highest_acc)
                 g_highest_acc = acc.account_num;
         }

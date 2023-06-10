@@ -11,7 +11,7 @@ struct Account
     int     balance {};
 };
 
-struct Client
+struct User
 {
     int                     customer_num {};
     std::string             name {};

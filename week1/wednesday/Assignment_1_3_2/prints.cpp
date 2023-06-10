@@ -18,7 +18,7 @@ void print_auth_options()
 void print_sign_up_success(int customer_number)
 {
     std::cout << "\nCongratualtions, you have registered to Seers Bank!\n";
-    std::cout << "Your customer number is: " << customer_number << '\n';
+    std::cout << "Your user number is: " << customer_number << '\n';
     std::cout << "You can use it to login to your account!\n\n";
 }
 
