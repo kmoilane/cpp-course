@@ -15,6 +15,10 @@ inline User*               g_logged_user { nullptr };
 inline int                 g_highest_acc { 0 };
 inline int                 g_highest_user { 0 };
 
+/*
+**  Function Declarations
+*/
+
 //  File management functions
 void    load_file();
 void    create_file();
@@ -23,18 +27,16 @@ void    create_file();
 int     authentication_ui();
 bool    banking_ui();
 
-//  Login functions
+//  User management functions
 User*   find_user(int num);
 int     get_login_info();
 bool    login();
-
-//  Signup and User creation functions
 Account create_account();
 User    create_user(std::string new_name, std::string addr, std::string phone);
 bool    sign_up();
 int     ask_sign_up_info();
 
-//  User action functions
+//  Banking functions
 void    deposit();
 void    withdraw();
 void    view_balance();
