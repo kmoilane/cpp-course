@@ -4,30 +4,42 @@
 #include "./structs.h"
 #include <iostream>
 
-Account new_account();
-User    add_client(std::string new_name, std::string addr, std::string phone);
+//  File management functions
+void    load_file();
+void    create_file();
+
+//  UI functions
+int     authentication_ui();
 bool    banking_ui();
-int     authentication();
+
+//  Login functions
 User*   find_user(int num);
-void    clear_cin();
-void    view_balance();
-void    withdraw();
-void    deposit();
-void    print_ui_options();
-void    print_invalid_option();
-void    logout();
-void    open_new_account();
-bool    banking_ui();
-void    print_auth_options();
 int     get_login_info();
 bool    login();
+
+//  Signup and User creation functions
+Account new_account();
+User    add_client(std::string new_name, std::string addr, std::string phone);
 bool    sign_up();
-int     authentication();
 int     add_user();
-void    print_sign_up_success(int customer_number);
-void    print_invalid_amount();
+
+//  User action functions
+void    deposit();
+void    withdraw();
+void    view_balance();
+void    open_new_account();
+void    logout();
 int     ask_amount();
 size_t  select_account();
-void    create_file();
+
+//  Print functions
+void    print_sign_up_success(int customer_number);
+void    print_invalid_amount();
+void    print_auth_options();
+void    print_ui_options();
+void    print_invalid_option();
+
+//  Utility functions
+void    clear_cin();
 
 #endif

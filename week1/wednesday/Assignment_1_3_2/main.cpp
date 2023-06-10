@@ -42,7 +42,6 @@ User*               g_logged_user { nullptr };
 int                 g_highest_acc { 0 };
 int                 g_highest_user { 0 };
 
-
 /*
 **  Creates a new User with given information and returns it
 */
@@ -110,15 +109,6 @@ User* find_user(int num)
         }
     }
     return nullptr;
-}
-
-/*
-**  Clears and ignores invalid input to std::cin
-*/
-void clear_cin()
-{
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 /*
@@ -231,17 +221,18 @@ void deposit()
     size_t option { select_account() };
 
     if (option == 0)
-    {
         print_invalid_option();
-    }
     else
     {
         int amount { ask_amount() };
         if (amount == -1)
             print_invalid_option();
         else if (amount == 0)
-        {
             std::cout << "\nYou need to enter positive value over 0\n";
+        else if (g_logged_user->accounts[option - 1].balance + amount
+            < 0)
+        {
+            std::cout << "\nThis account can't hold that much money!\n\n";
         }
         else
         {
@@ -368,7 +359,7 @@ bool sign_up()
 /*
 **  This function handles auhtentication UI and user input in it.
 */
-int authentication()
+int authentication_ui()
 {
     std::cout << "Welcome to Seers Bank!\n\n";
     while (true)
@@ -430,7 +421,7 @@ void create_file()
 void load_file()
 {
     std::string file_path{ "bank_db" };
-    std::ifstream file("file_path");
+    std::ifstream file(file_path);
 
     if (!file)
         return ;
@@ -481,12 +472,21 @@ void load_file()
     file.close();
 }
 
+/*
+**  Clears and ignores invalid input to std::cin
+*/
+void clear_cin()
+{
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
 int main()
 {
     load_file();
     while (true)
     {
-        int auth = authentication();
+        int auth = authentication_ui();
         if (auth == 1)
         {
             if(banking_ui())

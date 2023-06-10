@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-
 struct Account
 {
     int     account_num {};
@@ -19,6 +18,5 @@ struct User
     std::string             phone_num {};
     std::vector<Account>    accounts {};
 };
-
 
 #endif
