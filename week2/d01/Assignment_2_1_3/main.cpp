@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <random>
 #include <string>
@@ -6,7 +7,12 @@
 
 int random_num(int min, int max)
 {
-    std::mt19937 mt { std::random_device{}() };
+    std::random_device rd {};
+    std::seed_seq ss{static_cast<std::seed_seq::result_type>
+        (std::chrono::steady_clock::now().time_since_epoch().count()),
+			rd(), rd(), rd(), rd(), rd(), rd(), rd() };
+
+	std::mt19937 mt{ ss };
 
     std::uniform_int_distribution rand_range{ min, max };
 
