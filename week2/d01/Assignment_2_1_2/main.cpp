@@ -20,7 +20,7 @@ std::vector<int> random_vector()
     std::mt19937 mt { std::random_device{}() };
 
     std::uniform_int_distribution vect_range{ 1, 15 };
-    std::uniform_int_distribution value_range{-10, 10};
+    std::uniform_int_distribution value_range{ 1, 100 };
     int vect_size = vect_range(mt);
     std::vector<int> vect(static_cast<size_t>(vect_size));
 
