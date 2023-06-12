@@ -1,4 +1,0 @@
-
-# Monday
-
-## The Standard Library
