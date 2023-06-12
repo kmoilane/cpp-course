@@ -18,7 +18,6 @@
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
-        "forward_list": "cpp",
         "list": "cpp",
         "string": "cpp",
         "unordered_map": "cpp",
@@ -49,6 +48,9 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "forward_list": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp"
     }
 }
