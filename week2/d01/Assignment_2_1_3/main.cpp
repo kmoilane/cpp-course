@@ -1,9 +1,37 @@
+#include <algorithm>
 #include <iostream>
+#include <random>
+#include <string>
+#include <vector>
 
+int random_num(int min, int max)
+{
+    std::mt19937 mt { std::random_device{}() };
+
+    std::uniform_int_distribution rand_range{ min, max };
+
+    return rand_range(mt);
+}
+
+/*
+**  This program has a list of users that is rotated random amount of times,
+**  but at least once and at most the size of student list - 1 to the right.
+**  This way you don't get to review yourself, and two people wont review each
+**  other at the same time.
+*/
 int main()
 {
+    std::vector<std::string> v1 { "Erkki Esimerkki", "Maija Mehiläinen",
+    "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii", "Aku Ankka" };
 
+    std::vector<std::string> v2 { v1 };
+    int rotate_amount = random_num(1, static_cast<int>(v1.size() - 1));
+    std::rotate(v2.rbegin(), v2.rbegin() + rotate_amount, v2.rend());
 
+    for (size_t i = 0; i < v1.size(); ++i)
+    {
+        std::cout << v1[i] << " -> " << v2[i] << '\n';
+    }
 
     return 0;
 }
