@@ -18,7 +18,7 @@ void print(const int& n)
 **  Exercise 2
 **  Checks the Exercise 1 array for element n and returns true if found
 */
-bool is_in_array(std::array<int, 10>& arr, int& n)
+bool is_in_array(std::array<int, 10>& arr, int n)
 {
     for (int elem : arr)
     {
@@ -91,7 +91,7 @@ void print_smallest_and_greatest(std::list<int>& li)
 **  Finds every element in the vector that has same value as n. Erases the
 **  element and prints found msg.
 */
-void search_and_destroy(std::vector<int>& vect, int& n)
+void search_and_destroy(std::vector<int>& vect, int n)
 {
     for (auto it = vect.begin(); it != vect.end(); ++it)
     {
