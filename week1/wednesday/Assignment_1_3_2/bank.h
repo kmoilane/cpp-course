@@ -35,6 +35,7 @@ Account create_account();
 User    create_user(std::string new_name, std::string addr, std::string phone);
 bool    sign_up();
 int     ask_sign_up_info();
+std::string get_valid_string(std::string msg);
 
 //  Banking functions
 void    deposit();

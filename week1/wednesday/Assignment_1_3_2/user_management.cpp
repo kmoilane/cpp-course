@@ -81,24 +81,38 @@ User create_user(std::string new_name,std::string addr, std::string phone)
     return new_user;
 }
 
+
 /*
-**  Prompts user for user information and creates new User which is pushed
-**  to the global g_bank vector. Returns new users customer_num to caller.
+**  Prompts user for an input based on msg and checks that the
+**  input has no commas. Returns user input when proper string given.
+*/
+std::string get_valid_string(std::string msg)
+{
+    while (true)
+    {
+        std::string return_str {};
+        std::size_t found {};
+        std::cout << msg;
+        std::getline(std::cin >> std::ws, return_str);
+        found = return_str.find(',');
+        if (found == std::string::npos)
+        {
+            return return_str;
+        }
+        else
+            std::cout << "\nInput can't contain any commas (,)!\n";
+    }
+}
+
+/*
+**  Gets user input and creates new User which is pushed
+**  to the global g_bank vector. Returns the new users customer_num to caller.
 */
 int ask_sign_up_info()
 {
-    std::string name {};
-    std::string address {};
-    std::string phone_num {};
-    
-    std::cout << "Enter your name: ";
-    std::getline(std::cin >> std::ws, name);
-
-    std::cout << "Enter your address: ";
-    std::getline(std::cin >> std::ws, address);
-
-    std::cout << "Enter your phone number: ";
-    std::getline(std::cin >> std::ws, phone_num);
+    std::string name { get_valid_string("Enter your name: ") };
+    std::string address { get_valid_string("Enter your address: ") };
+    std::string phone_num { get_valid_string("Enter your phone number: ") };
 
     User new_user { create_user(name, address, phone_num) };
 
