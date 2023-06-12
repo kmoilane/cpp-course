@@ -22,7 +22,7 @@ int random_num(int min, int max)
 int main()
 {
     std::vector<std::string> v1 { "Erkki Esimerkki", "Maija Mehiläinen",
-    "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii" };
+    "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii", "Aku Ankka" };
     std::mt19937 mt { std::random_device{}() };
     std::shuffle(v1.begin(), v1.end(), mt);
 
