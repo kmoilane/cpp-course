@@ -18,7 +18,7 @@ void print(const int& n)
 **  Exercise 2
 **  Checks the Exercise 1 array for element n and returns true if found
 */
-bool is_in_array(std::array<int, 10> arr, int n)
+bool is_in_array(std::array<int, 10>& arr, int& n)
 {
     for (int elem : arr)
     {
@@ -32,7 +32,7 @@ bool is_in_array(std::array<int, 10> arr, int n)
 **  Exercie 3
 **  Calculates and returns the sum of every element in int vector
 */
-int calc_vect_sum(std::vector<int> vect)
+int calc_vect_sum(std::vector<int>& vect)
 {
     int sum {};
     for (int n : vect)
@@ -46,7 +46,7 @@ int calc_vect_sum(std::vector<int> vect)
 **  Calculates the product (multpilication) of every element in the vector
 **  and returns it to the caller.
 */
-int calc_vect_product(std::vector<int> vect)
+int calc_vect_product(std::vector<int>& vect)
 {
     int product { 1 };
     for (int n : vect)
@@ -71,7 +71,7 @@ int prompt_vect_size()
 **  Exercise 6
 **  Prints smallest and greatest values from std::list (also finds them)
 */
-void print_smallest_and_greatest(std::list<int> li)
+void print_smallest_and_greatest(std::list<int>& li)
 {
     int smallest = *li.begin();
     int greatest = smallest;
@@ -91,7 +91,7 @@ void print_smallest_and_greatest(std::list<int> li)
 **  Finds every element in the vector that has same value as n. Erases the
 **  element and prints found msg.
 */
-void search_and_destroy(std::vector<int>& vect, int n)
+void search_and_destroy(std::vector<int>& vect, int& n)
 {
     for (auto it = vect.begin(); it != vect.end(); ++it)
     {
