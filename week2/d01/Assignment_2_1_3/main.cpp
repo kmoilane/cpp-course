@@ -22,10 +22,18 @@ int random_num(int min, int max)
 int main()
 {
     std::vector<std::string> v1 { "Erkki Esimerkki", "Maija Mehiläinen",
-    "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii", "Aku Ankka" };
+    "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii" };
 
+    int list_size = static_cast<int>(v1.size());
+    int rotate_amount {};
     std::vector<std::string> v2 { v1 };
-    int rotate_amount = random_num(1, static_cast<int>(v1.size() - 1));
+    while (true)
+    {
+        rotate_amount = random_num(1, list_size - 1);
+        if ((rotate_amount == (list_size / 2)) && (list_size % 2 == 0))
+            continue ;
+        else break ;
+    }
     std::rotate(v2.rbegin(), v2.rbegin() + rotate_amount, v2.rend());
 
     for (size_t i = 0; i < v1.size(); ++i)
