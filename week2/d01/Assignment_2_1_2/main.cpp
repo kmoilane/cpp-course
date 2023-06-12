@@ -35,7 +35,7 @@ std::vector<int> random_vector()
 **  Exercise 6
 **  Prints smallest and greatest values from array (also finds them)
 */
-void print_smallest_and_greatest(std::vector<int> vect)
+void print_smallest_and_greatest(std::vector<int>& vect)
 {
     int smallest = *vect.begin();
     int greatest = smallest;
