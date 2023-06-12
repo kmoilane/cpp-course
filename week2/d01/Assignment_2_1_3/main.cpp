@@ -23,6 +23,8 @@ int main()
 {
     std::vector<std::string> v1 { "Erkki Esimerkki", "Maija Mehiläinen",
     "Roope Ankka", "Kroisos Pennonen", "Kulta Into Pii" };
+    std::mt19937 mt { std::random_device{}() };
+    std::shuffle(v1.begin(), v1.end(), mt);
 
     int list_size = static_cast<int>(v1.size());
     int rotate_amount {};
