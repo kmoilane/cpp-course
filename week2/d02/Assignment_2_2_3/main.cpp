@@ -2,9 +2,6 @@
 #include "includes/player.h"
 #include "includes/utils.h"
 #include <iostream>
-#include <vector>
-#include <random>
-#include <chrono>
 
 bool victory(Player& player)
 {

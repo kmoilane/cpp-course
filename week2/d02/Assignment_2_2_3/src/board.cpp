@@ -2,11 +2,11 @@
 #include "../includes/player.h"
 #include "../includes/utils.h"
 #include <iostream>
-#include <vector>
-#include <random>
-#include <chrono>
 
-
+/*
+**  Creates board and fills it with player at 0,0 position and others randomly
+**  with either obstacles or free cells
+*/
 void init_board(Matrix& map, Cell& cell)
 {
     for (int i = 0; i < 10; ++i)
@@ -30,6 +30,9 @@ void init_board(Matrix& map, Cell& cell)
     }
 }
 
+/*
+**  Prints map to console
+*/
 void draw_map(Matrix& map, Player& player, Cell& cell)
 {
     for (int i = 0; i < 10; ++i)
@@ -46,6 +49,10 @@ void draw_map(Matrix& map, Player& player, Cell& cell)
     std::cout << "Treasures found: " << player.points << '\n';
 }
 
+/*
+**  Adds 7 treasures to map, checks that cell is not player cell or doesn't
+**  already have a treasure
+*/
 void add_treasure(Matrix& map, Cell& cell)
 {
     for(int i = 0; i < 7; i++)

@@ -1,9 +1,6 @@
 #include "../includes/board.h"
 #include "../includes/player.h"
 #include <iostream>
-#include <vector>
-#include <random>
-#include <chrono>
 
 
 /*
