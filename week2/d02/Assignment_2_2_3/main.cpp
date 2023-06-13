@@ -63,10 +63,7 @@ void draw_map(Matrix& map, Player& player){
     {
         for (int j = 0; j < 10; ++j)
         {
-            if (i == player.row && j == player.col)
-                std::cout << cell.player;
-            else
-                std::cout << map[i][j];
+            std::cout << map[i][j];
         }
         std::cout << '\n';
     }
@@ -117,6 +114,9 @@ bool check_east(Matrix& map, Player& player){
     return false;
 }
 
+/*
+**  Handles player movement based on 4 directions
+*/
 void move_player(char dir, Matrix& map, Player& player)
 {
     if (dir == 'w')
@@ -124,7 +124,7 @@ void move_player(char dir, Matrix& map, Player& player)
         if (check_north(map, player))
         {
             std::cout << "\nPlayer moves north!\n";
-            map[player.row][player.row] = cell.free;
+            map[player.row][player.col] = cell.free;
             player.row -= 1;
         }
         else
@@ -135,7 +135,7 @@ void move_player(char dir, Matrix& map, Player& player)
         if (check_west(map, player))
         {
             std::cout << "\nPlayer moves west!\n";
-            map[player.row][player.row] = cell.free;
+            map[player.row][player.col] = cell.free;
             player.col -= 1;
         }
         else
@@ -146,7 +146,7 @@ void move_player(char dir, Matrix& map, Player& player)
         if (check_south(map, player))
         {
             std::cout << "\nPlayer moves south!\n";
-            map[player.row][player.row] = cell.free;
+            map[player.row][player.col] = cell.free;
             player.row += 1;
         }
         else
@@ -157,7 +157,7 @@ void move_player(char dir, Matrix& map, Player& player)
         if (check_east(map, player))
         {
             std::cout << "\nPlayer moves east!\n";
-            map[player.row][player.row] = cell.free;
+            map[player.row][player.col] = cell.free;
             player.col += 1;
         }
         else
@@ -165,6 +165,10 @@ void move_player(char dir, Matrix& map, Player& player)
     }
 }
 
+
+/*
+**  Main game loop
+*/
 int main()
 {
     Matrix map {};
