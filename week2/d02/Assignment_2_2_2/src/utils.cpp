@@ -1,5 +1,6 @@
 #include "../includes/utils.h"
 #include <iostream>
+#include <string>
 
 void print_help()
 {
