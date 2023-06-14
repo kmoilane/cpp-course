@@ -10,7 +10,7 @@ void clear_cin()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-char random_num(int a, int b)
+int random_num(int a, int b)
 {
     std::random_device rd{};
     std::seed_seq ss{
