@@ -8,4 +8,4 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ingestion utils)
+target_link_libraries(${PROJECT_NAME} PUBLIC ingestion sensor_readings utils)

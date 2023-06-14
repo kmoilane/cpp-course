@@ -9,5 +9,6 @@ struct  Sensor_data
     std::pair<int,int>  time {};
     float               value{};
 };
+constexpr static float outlier_val = 1.25;
 
 #endif
