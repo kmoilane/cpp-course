@@ -1,1 +1,1 @@
-add_library(utils STATIC utils.cpp)
+add_library(ex1 STATIC ex1.cpp)
