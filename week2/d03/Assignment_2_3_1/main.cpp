@@ -16,7 +16,7 @@ void print_vect(std::vector<int>& vect)
 int main()
 {
     ex1_main();
-
+    ex2_main();
 
     return 0;
 }

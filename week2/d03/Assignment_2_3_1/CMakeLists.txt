@@ -8,4 +8,4 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ex1)
+target_link_libraries(${PROJECT_NAME} PUBLIC ex1 ex2)
