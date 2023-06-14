@@ -3,8 +3,9 @@
 #include <string>
 #include <vector>
 
-
-
+/*
+**  Prints out the names of foods in the current order and the total price
+*/
 void view_order(std::vector<Order>& orders)
 {
     double total { 0 };
@@ -19,6 +20,10 @@ void view_order(std::vector<Order>& orders)
     std::cout << "\nTotal price is: " << total << "€\n\n";
 }
 
+/*
+**  Prints simplified list of foods in the menu
+**  with only number, name and price
+*/
 void print_order_menu(Menu& food_menu)
 {
     int i = 1;
@@ -30,6 +35,9 @@ void print_order_menu(Menu& food_menu)
     }
 }
 
+/*
+**  Allows user to add a foods from order menu to the current order
+*/
 Order make_order(Menu& food_menu)
 {
     size_t options = food_menu.foods.size();

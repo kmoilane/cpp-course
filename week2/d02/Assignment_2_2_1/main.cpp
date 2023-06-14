@@ -10,6 +10,9 @@ void clear_cin()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+/*
+**  Prints options menu for user
+*/
 int menu()
 {
     std::cout << "1) Add Food\n";

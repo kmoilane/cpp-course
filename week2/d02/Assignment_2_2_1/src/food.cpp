@@ -2,6 +2,10 @@
 #include <iostream>
 #include <vector>
 
+/*
+**  Prints the food name, price and all the ingredients
+*/
+
 void print_food(Food& order)
 {
     std::cout << "Food: " << order.name << '\n';
@@ -16,6 +20,9 @@ void print_food(Food& order)
     std::cout << '\n';
 }
 
+/*
+**  Allows user to add new foods to the menu
+*/
 void add_food(Menu& food_menu)
 {
     std::cout << "Enter the name of the food: ";
@@ -58,6 +65,9 @@ void add_food(Menu& food_menu)
     std::cout << "\nFood added!\n";
 }
 
+/*
+**  Loops through menu and sends every food to be printed
+*/
 void print_menu(Menu& food_menu)
 {
     for (auto food : food_menu.foods)
