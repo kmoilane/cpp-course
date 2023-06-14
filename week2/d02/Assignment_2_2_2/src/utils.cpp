@@ -1,7 +1,11 @@
 #include "../includes/utils.h"
+#include <cassert>
 #include <iostream>
 #include <string>
 
+/*
+**  Prints the help messages if input is not correct
+*/
 void print_help()
 {
     std::cout << "\nHow to use Calculator:\n";
@@ -15,29 +19,31 @@ void print_help()
     std::cout << "  --decrypt string key\t[Decrypts the string of two integers]\n";
 }
 
-void print_sum(int a, int b)
+void print_sum(double a, double b)
 {
-    std::cout << a << '+' << b << " = " << a+b << '\n';
+    std::cout << a << " + " << b << " = " << a+b << '\n';
 }
 
-void print_substraction(int a, int b)
+void print_substraction(double a, double b)
 {
-    std::cout << a << '-' << b << " = " << a-b << '\n';
+    std::cout << a << " - " << b << " = " << a-b << '\n';
 }
 
-void print_multiplication(int a, int b)
+void print_multiplication(double a, double b)
 {
-    std::cout << a << '*' << b << " = " << a*b << '\n';
+    std::cout << a << " * " << b << " = " << a*b << '\n';
 }
 
-void print_division(int a, int b)
+void print_division(double a, double b)
 {
-    if (b == 0)
-        std::cout << "\nYou dumb dumb\n";
-    else
-        std::cout << a << '/' << b << " = " << a / static_cast<double>(b) << '\n';
+    assert(b != 0 && "Division by 0 is not defined!\n");
+    std::cout << a << " / " << b << " = " << a / b << '\n';
 }
 
+
+/*
+**  Encrypts str with Caesars Cipher. Key is the amount of rotations
+*/
 void encrypt(std::string str, int key)
 {
     std::cout << "Encrypting " << str << " with " << key << '\n';
@@ -51,6 +57,9 @@ void encrypt(std::string str, int key)
     std::cout << str << '\n';
 }
 
+/*
+**  Decrypts str with Caesars Cipher. Key is the amount of rotations
+*/
 void decrypt(std::string str, int key)
 {
     std::cout << "Decrypting " << str << " with " << key << '\n';
