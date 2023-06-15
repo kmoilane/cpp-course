@@ -1,0 +1,5 @@
+add_library(print_file STATIC print_file.cpp)
+add_library(line_count STATIC line_count.cpp)
+add_library(word_count STATIC word_count.cpp)
+add_library(char_count STATIC char_count.cpp)
+add_library(dir_size STATIC dir_size.cpp)
