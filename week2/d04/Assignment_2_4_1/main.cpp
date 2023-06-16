@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
         ("c,chars", "Print character count of a file", cxxopts::value<std::string>())
         ("s,size", "Print size of the text files in the given directory",
             cxxopts::value<std::string>())
+        ("a,add", "Add two numbers together", cxxopts::value<std::vector<double>>())
         ("h,help", "Print usage")
     ;
 
