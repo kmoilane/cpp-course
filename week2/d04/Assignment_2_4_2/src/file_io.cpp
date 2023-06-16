@@ -1,5 +1,6 @@
 #include "../includes/device.h"
 #include "../includes/file_io.h"
+#include "../includes/utils.h"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -90,10 +91,28 @@ void read_register(const std::vector<Device>& devices)
     return ;
 }
 
-void write_to_register(const std::vector<Device>& devices)
+int ask_value()
 {
-    if (devices.begin() != devices.end())
-        return ;
+    std::cout << "Enter value: ";
+    int val { listen_int_input() };
+    return val;
 }
 
+void write_to_register(std::vector<Device>& devices)
+{
+    int device_id { select_device(devices) };
+    int register_id { select_register(devices, device_id) };
+    int value = ask_value();
 
+    for (auto& device : devices)
+    {
+        for (auto& reg : device.reg)
+        {
+            if (reg.first == register_id)
+            {
+                reg.second = value;
+            }
+        }
+    }
+    create_files(devices);
+}
