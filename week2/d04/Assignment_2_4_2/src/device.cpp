@@ -13,13 +13,7 @@ Device create_devices(int& id, int& reg_id, bool master)
         Device new_device {++id, master};
         int regs { random_num(2, 5) };
         for (int i = 0; i < regs; ++i, ++reg_id)
-        {
-            int vals { random_num(2, 5) };
-            for (int j = 0; j < vals; ++j)
-            {
-                new_device.reg[reg_id].push_back(random_num(0, 1));
-            }
-        }
+            new_device.reg[reg_id] = random_num(0, 1);
         return new_device;
     }
 }
@@ -36,17 +30,15 @@ std::vector<Device> create_devices(int& id, int& reg_id, int amount, bool master
 
 void print_registers(const std::vector<Device>& devices, int device_id)
 {
-    int i { 1 };
     for (Device device : devices)
     {
         if (device_id == device.id)
         {
             for (auto reg : device.reg)
             {
-                std::cout << device.id << ") register_" << reg.first << '\n';
+                std::cout << reg.first << ") register_" << reg.first << '\n';
             }
         }
-        ++i;
     }
 }
 
@@ -79,7 +71,7 @@ int select_register(const std::vector<Device>& devices, int device_id)
     {
         std::cout << "\nSelect register:\n";
         print_registers(devices, device_id);
-        int register_id { validate_int_input(1, slave_count(devices)) };
+        int register_id { listen_int_input() };
         if (register_id == 0)
         {
             std::cout << "\nInvalid register number!\n";

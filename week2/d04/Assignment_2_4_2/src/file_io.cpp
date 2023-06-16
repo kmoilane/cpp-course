@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
 
@@ -18,7 +19,6 @@ int create_device_file(const std::vector<Device>& devices, std::string file_name
     if(!file.is_open())
         return 1;
 
-    file << "Device id,Master\n";
     for (Device device : devices)
     {
         file << std::boolalpha
@@ -37,26 +37,15 @@ int create_register_file(const std::vector<Device>& devices, std::string file_na
     if(!file.is_open())
         return 1;
 
-    file << "Device id, Register address, Register value\n";
     for (Device device : devices)
     {
         if (device.master)
             continue ;
         file << device.id << '\n';
         for (auto reg : device.reg)
-        {
-            file << reg.first << ',';
-            for(auto val = reg.second.begin(); val != reg.second.end(); ++val)
-            {
-                file << *val;
-                if (val != reg.second.end())
-                    file << ',';
-            }
-            file << '\n';
-        }
+            file << reg.first << ',' << reg.second << '\n';
         file << '\n';
     }
-
     file.close();
     return 0;
 }
@@ -72,77 +61,39 @@ void read_register(const std::vector<Device>& devices)
 {
     int device_id { select_device(devices) };
     int register_id { select_register(devices, device_id) };
-    std::ifstream file(device_file_name);
+    std::ifstream file(register_file_name);
     
     if (!file.is_open())
     {
-        std::cout << "\n";
+        std::cout << "Register file not found!\n";
+        return ;
     }
+    std::string line {};
+
+    while (std::getline(file, line))
+    {
+        std::istringstream iss(line);
+        std::string id_str {};
+        std::getline(iss, id_str, ',');
+        if (std::to_string(register_id) == id_str)
+        {
+            std::cout << "Register_" << register_id << " values:\n";
+            std::string val_str {};
+            std::getline(iss, val_str, '\n');
+            std::cout << std::noboolalpha << val_str;
+            std::cout << '\n';
+            file.close();
+            return ;
+        }
+    }
+    file.close();
+    return ;
 }
 
 void write_to_register(const std::vector<Device>& devices)
 {
-    
-}
-/*
-**  This function opens the bank_db file and loops through it line by line.
-**  Based on the formatting and order of data in the file, we can take every
-**  part and place it to our User struct in the correct member. After each
-**  User, we push it to our global g_bank vector that holds all Users. We also
-**  update the g_highest_user and g_highest_acc to keep them up to date.
-*/
-/*
-void load_file()
-{
-    std::string file_path{ "bank_db" };
-    std::ifstream file(file_path);
-
-    if (!file)
+    if (devices.begin() != devices.end())
         return ;
-
-    std::string line {};
-    User client;
-    bool reading_accounts = false;
-
-    while (std::getline(file, line))
-    {
-        if (line.empty()) {
-            reading_accounts = false;
-            g_bank.push_back(client);
-            client = User();
-        }
-        else if (!reading_accounts)
-        {
-            std::istringstream iss(line);
-            std::string customer_num_str {};
-            std::getline(iss, customer_num_str, ',');
-            std::getline(iss, client.name, ',');
-            std::getline(iss, client.address, ',');
-            std::getline(iss, client.phone_num);
-            client.customer_num = std::stoi(customer_num_str);
-
-            if (client.customer_num > g_highest_user)
-                g_highest_user = client.customer_num;
-
-            reading_accounts = true;
-        }
-        else
-        {
-            std::istringstream iss(line);
-            Account acc {};
-            std::string acc__num_str {};
-            std::string balance_str {};
-            std::getline(iss, acc__num_str, ',');
-            std::getline(iss, balance_str);
-            acc.account_num = std::stoi(acc__num_str);
-            acc.balance = std::stoi(balance_str);
-            client.accounts.push_back(acc);
-
-            if (acc.account_num > g_highest_acc)
-                g_highest_acc = acc.account_num;
-        }
-
-    }
-    file.close();
 }
-*/
+
+

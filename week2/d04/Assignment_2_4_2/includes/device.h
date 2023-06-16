@@ -9,7 +9,7 @@ struct Device
 {
     int id {};
     bool master {false};
-    std::map<int, std::vector<int>> reg {};
+    std::map<int, int> reg {};
 };
 
 std::vector<Device> create_devices(int& id, int& reg_id, int amount, bool master);
