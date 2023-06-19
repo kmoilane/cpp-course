@@ -17,6 +17,10 @@ double divide(double a, double b)
         return a / b;
 }
 
+/*
+**  Asks user for a number. Keeps asking if user inputs something that will fail
+**  std::cin, like characters or max double/min double etc.
+*/
 double ask_number()
 {
     while (true)
@@ -30,6 +34,12 @@ double ask_number()
     }
 }
 
+/*
+**  main() calls functiont to ask user for numbers, the tries to divice it.
+**  If divider is 0, prints the error message to cout and continues to ask for
+**  new numbers. If given proper values, breaks the while loop and prints the
+**  result.
+*/
 int main()
 {
     double result {};

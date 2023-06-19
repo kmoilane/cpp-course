@@ -18,7 +18,7 @@ void process_data(std::string& str)
 }
 
 /*
-**  Takesn an integer and throws and exception if the int is negative
+**  Takes an integer and throws and exception if the int is negative
 */
 void process_data(int i)
 {
