@@ -42,6 +42,19 @@ int ask_id()
     }
 }
 
+void check_names(std::vector<Names>& names, int id)
+{
+    for (Names name : names)
+    {
+        if (name.id == id)
+        {
+            std::cout << "\nYou selected " << name.name << '\n';
+            return ;
+        }
+    }
+    throw std::range_error("Selected id is out of range!");
+}
+
 int main()
 {
     std::vector<Names> name_list {
@@ -51,23 +64,25 @@ int main()
         { 3, "Lupu Ankka" }
     };
 
-    std::cout << "ID\tName\n";
-    print_names(name_list);
-    int id { ask_id() };
-
-    /*
-    **  Loops through the names and checks for a matching id in the list. If not
-    **  found, it will throw a range_error
-    */
-    for (Names name : name_list)
+    while (true)
     {
-        if (name.id == id)
-        {
-            std::cout << "\nYou selected " << name.name << '\n';
-            return 0;
+        std::cout << "ID\tName\n";
+        print_names(name_list);
+        int id { ask_id() };
+
+        /*
+        **  Loops through the names and checks for a matching id in the list. If not
+        **  found, it will throw a range_error
+        */
+        try {
+            check_names(name_list, id);
         }
+        catch (std::range_error& e) {
+            std::cout << "Error: " << e.what() << '\n';
+            continue ;
+        }
+        return 0;
     }
-    throw std::range_error("Selected id is out of range!");
     
     return 0;
 }
