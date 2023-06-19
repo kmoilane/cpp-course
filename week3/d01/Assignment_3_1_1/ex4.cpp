@@ -3,6 +3,11 @@
 #include <stdexcept>
 #include <string>
 
+
+/*
+**  Takes a string and loops through each character, throws an exception if
+**  any chacater is not an alphabet
+*/
 void process_data(std::string& str)
 {
     for (auto& c : str)
@@ -12,6 +17,9 @@ void process_data(std::string& str)
     }
 }
 
+/*
+**  Takesn an integer and throws and exception if the int is negative
+*/
 void process_data(int i)
 {
     if (i < 0)
