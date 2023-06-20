@@ -18,14 +18,21 @@ constexpr std::pair<double, double> PRESSURE_RANGE { 930, 1070 };
 constexpr std::pair<int, int>       HUMIDITY_RANGE { 0, 100 };
 constexpr std::pair<int, int>       WIND_RANGE { 0, 222 };
 
+struct Ymd
+{
+    int year {};
+    int month {};
+    int day {};
+};
+
 struct Weather
 {
     double  temperature {}; // In celsius
     double  pressure {};    // Atmospheric pressure in hPa
     int     humidity {};    // 0%-100%
     int     wind_speed {};  // m/s
-    int     seaason {};     // 1-4
-    std::chrono::year_month_day date {}; // Date in year mont day format
+    int     season {};     // 1-4
+    Ymd     date {}; // Date in year mont day format
 };
 
 #endif
