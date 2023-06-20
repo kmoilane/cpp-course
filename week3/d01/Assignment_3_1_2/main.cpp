@@ -1,14 +1,16 @@
+#include "includes/generate_data.h"
 #include "includes/utils.h"
+#include "includes/weather.h"
 #include <iostream>
 
 int main()
 {
-    int i = 0;
-    while (true)
+    std::vector<Weather> weather_data { generate_weather(10, { 1997, 7, 1 }) };
+    for (auto data : weather_data)
     {
-        std::cout << i << '\n';
-        i++;
-        if (i == 1000)
-            return 0;
+        std::cout << "Date: " << data.date.day << '.' << data.date.month
+            << '.' << data.date.year << '\n';
+        std::cout << "Temperature: " << data.temperature << "C\n\n";
     }
+    return 0;
 }

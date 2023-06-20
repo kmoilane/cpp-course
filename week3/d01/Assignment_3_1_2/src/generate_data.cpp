@@ -63,11 +63,59 @@ void select_season(Weather& reading)
         reading.season = SPRING;
 }
 
-void generate_temperature(Weather& new_reading, Weather previous_reading = {})
+void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
 {
     if (new_reading.season == WINTER)
     {
-
+        if (temp == INT_MIN)
+        {
+            new_reading.temperature =
+                random_num(WINTER_TEMP_RANGE.first, WINTER_TEMP_RANGE.second);
+        }
+        else
+        {
+            new_reading.temperature =
+                random_num(temp - 5, temp + 5);
+        }
+    }
+    else if (new_reading.season == SPRING)
+    {
+        if (temp == INT_MIN)
+        {
+            new_reading.temperature =
+                random_num(SPRING_TEMP_RANGE.first, SPRING_TEMP_RANGE.second);
+        }
+        else
+        {
+            new_reading.temperature =
+                random_num(temp - 5, temp + 5);
+        }
+    }
+    else if (new_reading.season == SUMMER)
+    {
+        if (temp == INT_MIN)
+        {
+            new_reading.temperature =
+                random_num(SUMMER_TEMP_RANGE.first, SUMMER_TEMP_RANGE.second);
+        }
+        else
+        {
+            new_reading.temperature =
+                random_num(temp - 5, temp + 5);
+        }
+    }
+    else if (new_reading.season == AUTUMN)
+    {
+        if (temp == INT_MIN)
+        {
+            new_reading.temperature =
+                random_num(AUTUMN_TEMP_RANGE.first, AUTUMN_TEMP_RANGE.second);
+        }
+        else
+        {
+            new_reading.temperature =
+                random_num(temp - 5, temp + 5);
+        }
     }
 }
 
@@ -78,12 +126,19 @@ std::vector<Weather> generate_weather(int days, Ymd date)
 {
     Ymd current_date { date };
     std::vector<Weather> weather_data {};
+    double prev_temp = INT_MIN;
     for (int i = 0; i < days; ++i)
     {
         Weather new_reading {};
         new_reading.date = current_date;
         select_season(new_reading);
-        generate_temperature(new_reading);
+        if (i == 0)
+            generate_temperature(new_reading);
+        else
+            generate_temperature(new_reading, prev_temp);
         update_date(current_date);
+        prev_temp = new_reading.temperature;
+        weather_data.push_back(new_reading);
     }
+    return weather_data;
 }
