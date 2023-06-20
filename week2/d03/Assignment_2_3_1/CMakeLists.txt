@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.24.2)
+
+project(sorted)
+
+add_subdirectory(src)
+
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_include_directories(${PROJECT_NAME} PUBLIC includes)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC ex1 ex2 ex3 ex4 ex5 ex7 ex8)
