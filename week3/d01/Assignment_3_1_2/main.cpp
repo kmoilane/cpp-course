@@ -10,6 +10,7 @@ int main()
     {
         std::cout << "Date: " << data.date.day << '.' << data.date.month
             << '.' << data.date.year << '\n';
+        std::cout << "Season: " << data.season << '\n';
         std::cout << "Temperature: " << data.temperature << "C\n\n";
     }
     return 0;

@@ -58,9 +58,9 @@ void select_season(Weather& reading)
     else if (reading.date.month == 3 || reading.date.month == 4 || reading.date.month == 5)
         reading.season = SPRING;
     else if (reading.date.month == 6 || reading.date.month == 7 || reading.date.month == 8)
-        reading.season = SPRING;
+        reading.season = SUMMER;
     else if (reading.date.month == 9 || reading.date.month == 10 || reading.date.month == 11)
-        reading.season = SPRING;
+        reading.season = AUTUMN;
 }
 
 void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
