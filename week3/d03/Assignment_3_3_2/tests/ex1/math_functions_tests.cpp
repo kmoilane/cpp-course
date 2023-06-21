@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-#include "../../externals/doctest.h"
+#include "../includes/doctest.h"
 #include "../../includes/math_functions.h"
 
 TEST_CASE("Testing addition function")

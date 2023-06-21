@@ -1,5 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../externals/doctest.h"
+#include "../includes/doctest.h"
 #include "../includes/string_utility.h"
 
 TEST_CASE("Testing reverse_string")

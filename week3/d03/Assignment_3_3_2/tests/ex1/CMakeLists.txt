@@ -6,6 +6,6 @@ add_executable(${PROJECT_NAME} math_functions_tests.cpp)
 
 add_subdirectory(./../../src [binary_dir][EXCLUDE_FROM_ALL])
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../../includes ../../externals [binary_dir][EXCLUDE_FROM_ALL])
+target_include_directories(${PROJECT_NAME} PUBLIC ../../includes ../includes [binary_dir][EXCLUDE_FROM_ALL])
 
 target_link_libraries(${PROJECT_NAME} PUBLIC math_functions)
