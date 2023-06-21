@@ -1,7 +1,7 @@
 #ifndef BANK_H
 #define BANK_H
 
-#include "./structs.h"
+#include "structs.h"
 #include <iostream>
 
 /*

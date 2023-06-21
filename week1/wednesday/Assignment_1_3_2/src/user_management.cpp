@@ -1,5 +1,5 @@
-#include "bank.h"
-#include "structs.h"
+#include "../includes/bank.h"
+#include "../includes/structs.h"
 #include <iostream>
 #include <vector>
 

@@ -3,8 +3,8 @@
 **  or are here to clarify the functions they are called from.
 */
 
-#include "./structs.h"
-#include "./bank.h"
+#include "../includes/structs.h"
+#include "../includes/bank.h"
 #include <iostream>
 #include <vector>
 

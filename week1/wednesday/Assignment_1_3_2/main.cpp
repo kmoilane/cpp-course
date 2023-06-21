@@ -1,5 +1,5 @@
-#include "./bank.h"
-#include "./structs.h"
+#include "includes/bank.h"
+#include "includes/structs.h"
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -77,7 +77,7 @@ int authentication_ui()
 */
 void create_file()
 {
-    std::string file_path{ "bank_db" };
+    std::string file_path{ "db/bank_db" };
     std::ofstream file(file_path);
 
     if(!file)
@@ -111,7 +111,7 @@ void create_file()
 */
 void load_file()
 {
-    std::string file_path{ "bank_db" };
+    std::string file_path{ "db/bank_db" };
     std::ifstream file(file_path);
 
     if (!file)
