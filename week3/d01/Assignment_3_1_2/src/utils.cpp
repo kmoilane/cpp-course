@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 
-double random_num(double a, double b)
+int random_num(int a, int b)
 {
     std::random_device rd{};
     std::seed_seq ss{
@@ -11,7 +11,7 @@ double random_num(double a, double b)
         (std::chrono::steady_clock::now().time_since_epoch().count()),
         rd(), rd(), rd(), rd(), rd(), rd(), rd() };
     std::mt19937 mt {ss};
-    std::uniform_real_distribution distr{a, b};
+    std::uniform_int_distribution distr{a, b};
     return distr(mt);
 }
 
