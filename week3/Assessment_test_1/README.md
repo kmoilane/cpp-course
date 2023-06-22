@@ -1,5 +1,19 @@
 # Assessment test 1
 
+## How to run and test
+
+### To build and run the software
+Go to project root dir Assessment_test_1/ and run:
+```cmake -S . -B build```
+To run the program:
+```./build/bank_wallet```
+
+### To test the project
+To test, go to Assesment_test_1/tests/ directory and run:
+```cmake -S . -B build```
+To run the tests:
+```./build/bank_wallet```
+
 ## Personal finance management system
 
 Build a personal finance system that can track income and expenses. 
