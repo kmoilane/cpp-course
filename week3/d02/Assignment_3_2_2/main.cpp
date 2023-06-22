@@ -1,17 +1,11 @@
+#include "includes/game.h"
 #include <climits>
 #include <iostream>
 #include <limits>
 #include <string>
 #include <vector>
 #include <algorithm>
-using GameBoard = std::vector<std::vector<char>>;
 
-#define SIZE 3
-#define EMPTY ' '
-#define PLAYER_1 'X'
-#define PLAYER_2 'O'
-
-int minimax(GameBoard game_board, int depth, bool player_1);
 void fill_board(GameBoard &game_board)
 {
     for (int i = 0; i < 3; i++)
@@ -64,8 +58,9 @@ int parse_string(std::pair<int, int> &position, std::string str)
     return 0;
 }
 
-/* Function checks the position is right formated and empty
- */
+/*
+**  Function checks that the position is right formated and empty
+*/
 std::pair<int, int> get_position(const GameBoard &game_board)
 {
     std::pair<int, int> position;
@@ -82,7 +77,7 @@ std::pair<int, int> get_position(const GameBoard &game_board)
         }
         else if (game_board[position.first][position.second] != EMPTY)
         {
-            std::cout << "Position is not free.";
+            std::cout << "Position is not free.\n";
             continue;
         }
         break;
@@ -90,8 +85,27 @@ std::pair<int, int> get_position(const GameBoard &game_board)
     return position;
 }
 
+/*
+**  check if game board is full
+*/
+bool is_board_full(const std::vector<std::vector<char>> &game_board)
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (game_board[i][j] == EMPTY)
+                return false;
+        }
+    }
+    return true;
+}
+
+/*
+**  Updates board with correct char based on who's turn it is
+*/
 void update_board(GameBoard &game_board, const std::pair<int, int> &position,
-                  const bool &player_1)
+    const bool &player_1)
 {
     if (player_1)
     {
@@ -103,12 +117,18 @@ void update_board(GameBoard &game_board, const std::pair<int, int> &position,
     }
 }
 
+/*
+**  Changes the turn of the player by swapping player_1 to true or false
+*/
 void change_turn(bool &player_1) { player_1 = !player_1; }
 
-// check if current player has won the game
+/*
+**  Checks if either of the players has won, or if game board is full and it's
+**  a draw.
+*/
 int check_board(const GameBoard& game_board)
 {
-        // Check rows
+    // Check rows
     for (int i = 0; i < SIZE; ++i) {
         if (game_board[i][0] != EMPTY && game_board[i][0] == game_board[i][1] && game_board[i][1] == game_board[i][2]) {
             if (game_board[i][0] == PLAYER_1)
@@ -155,20 +175,6 @@ int check_board(const GameBoard& game_board)
     return INT_MIN;
 }
 
-// check if game is over (draw)
-bool is_board_full(const std::vector<std::vector<char>> &game_board)
-{
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
-            if (game_board[i][j] == EMPTY)
-                return false;
-        }
-    }
-    return true;
-}
-
 /*
 **  Function checks all possible moves
 */
@@ -207,7 +213,7 @@ std::pair<int, int> find_best_move(const GameBoard& game_board)
                 {
                     best_eval = eval;
                     best_move = std::make_pair(i, j);
-                }         
+                }
             }
         }
     }
@@ -273,7 +279,7 @@ int get_input()
     while (true)
     {
         int cmd{};
-        std::cin >> cmd;
+        std::cin.ignore() >> cmd;
         if (!std::cin)
         {
             std::cout << "Invalid input\n";
@@ -333,10 +339,10 @@ int game_loop(bool ai_minimax)
         {
             if(winner == 1)
             {
-                std::cout << "\nPlayer 1 wins!\n\n";
+                std::cout << "\nPlayer 1 won!\n\n";
             }
             else{
-                std::cout << "\nPlayer 2 wins!\n\n";
+                std::cout << "\nPlayer 2 won!\n\n";
             }
             return game_over_loop();
         }
