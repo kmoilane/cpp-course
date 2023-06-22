@@ -8,5 +8,5 @@ add_subdirectory(src)
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC game)
+target_link_libraries(${PROJECT_NAME} PUBLIC game utils)
     
