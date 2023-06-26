@@ -15,8 +15,8 @@ constexpr std::pair<int, int> SUMMER_TEMP_RANGE { 10, 40 };
 constexpr std::pair<int, int> AUTUMN_TEMP_RANGE { -5, 35 };
 
 constexpr std::pair<int, int> PRESSURE_RANGE { 930, 1070 };
-constexpr std::pair<int, int>       HUMIDITY_RANGE { 0, 100 };
-constexpr std::pair<int, int>       WIND_RANGE { 0, 222 };
+constexpr std::pair<int, int> HUMIDITY_RANGE { 20, 60 };
+constexpr std::pair<int, int> WIND_RANGE { 0, 222 };
 
 struct Ymd
 {
@@ -27,9 +27,9 @@ struct Ymd
 
 struct Weather
 {
-    int  temperature {}; // In celsius
-    int  pressure {};    // Atmospheric pressure in hPa
-    int     humidity {};    // 0%-100%
+    int     temperature {}; // In celsius
+    int     pressure {0};   // Atmospheric pressure in hPa
+    int     humidity {0};   // 0%-100%
     int     wind_speed {};  // m/s
     int     season { 0 };   // 1-4
     Ymd     date {};        // Date in year mont day format

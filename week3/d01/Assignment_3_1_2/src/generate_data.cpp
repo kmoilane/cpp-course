@@ -63,6 +63,11 @@ void select_season(Weather& reading)
         reading.season = AUTUMN;
 }
 
+void generate_pressure(Weather& new_reading, double pressure)
+{
+    
+}
+
 void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
 {
     if (new_reading.season == WINTER)
@@ -122,21 +127,23 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
 /*
 **  Generates weather data for x amount of days, starting from the given date
 */
-std::vector<Weather> generate_weather(int days, Ymd date)
+std::vector<Weather> generate_weather(int days, Ymd& date)
 {
-    Ymd current_date { date };
     std::vector<Weather> weather_data {};
     double prev_temp = INT_MIN;
     for (int i = 0; i < days; ++i)
     {
+        generate_pressure(new_reading);
         Weather new_reading {};
-        new_reading.date = current_date;
+        new_reading.date = date;
         select_season(new_reading);
         if (i == 0)
             generate_temperature(new_reading);
         else
             generate_temperature(new_reading, prev_temp);
-        update_date(current_date);
+        
+
+        update_date(date);
         prev_temp = new_reading.temperature;
         weather_data.push_back(new_reading);
     }

@@ -2,6 +2,7 @@
 #include "includes/utils.h"
 #include "includes/weather.h"
 #include <iostream>
+#include <fstream>
 
 int main()
 {

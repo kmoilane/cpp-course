@@ -8,7 +8,7 @@
 #include <climits>
 
 void generate_temperature(Weather& new_reading, double temp = INT_MIN);
-std::vector<Weather> generate_weather(int days, Ymd date);
+std::vector<Weather> generate_weather(int days, Ymd& date);
 void select_season(Weather& reading);
 void update_date(Ymd& date);
 bool is_leap_year(int year);
