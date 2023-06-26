@@ -12,7 +12,7 @@ To run the program:
 To test, go to Assesment_test_1/tests/ directory and run:
 ```cmake -S . -B build```
 To run the tests:
-```./build/bank_wallet```
+```./build/bank_wallet_tests```
 
 ## Personal finance management system
 
