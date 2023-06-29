@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <climits>
 
 constexpr int WINTER = 1;   // December - February
 constexpr int SPRING = 2;   // March - May
@@ -27,12 +28,14 @@ struct Ymd
 
 struct Weather
 {
-    int     temperature {}; // In celsius
-    int     pressure {0};   // Atmospheric pressure in hPa
-    int     humidity {0};   // 0%-100%
-    int     wind_speed {};  // m/s
-    int     season { 0 };   // 1-4
-    Ymd     date {};        // Date in year mont day format
+    constexpr static int init_value = INT_MIN;
+
+    int     temperature {init_value};   // In celsius
+    int     pressure {init_value};      // Atmospheric pressure in hPa
+    int     humidity {init_value};      // 0%-100%
+    int     wind_speed {init_value};    // m/s
+    int     season {init_value};        // 1-4
+    Ymd     date {};                    // Date in year mont day format
 };
 
 #endif

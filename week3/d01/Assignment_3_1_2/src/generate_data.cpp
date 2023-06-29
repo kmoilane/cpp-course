@@ -63,16 +63,21 @@ void select_season(Weather& reading)
         reading.season = AUTUMN;
 }
 
-void generate_pressure(Weather& new_reading, double pressure)
+void generate_pressure(Weather& new_reading, int prev_pressure)
 {
     
 }
 
-void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
+void generate_wind(Weather& new_reading, int prev_wind)
+{
+    
+}
+
+void generate_temperature(Weather& new_reading, int prev_temp)
 {
     if (new_reading.season == WINTER)
     {
-        if (temp == INT_MIN)
+        if (prev_temp == INT_MIN)
         {
             new_reading.temperature =
                 random_num(WINTER_TEMP_RANGE.first, WINTER_TEMP_RANGE.second);
@@ -80,12 +85,12 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
         else
         {
             new_reading.temperature =
-                random_num(temp - 5, temp + 5);
+                random_num(prev_temp - 5, prev_temp + 5);
         }
     }
     else if (new_reading.season == SPRING)
     {
-        if (temp == INT_MIN)
+        if (prev_temp == INT_MIN)
         {
             new_reading.temperature =
                 random_num(SPRING_TEMP_RANGE.first, SPRING_TEMP_RANGE.second);
@@ -93,12 +98,12 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
         else
         {
             new_reading.temperature =
-                random_num(temp - 5, temp + 5);
+                random_num(prev_temp - 5, prev_temp + 5);
         }
     }
     else if (new_reading.season == SUMMER)
     {
-        if (temp == INT_MIN)
+        if (prev_temp == INT_MIN)
         {
             new_reading.temperature =
                 random_num(SUMMER_TEMP_RANGE.first, SUMMER_TEMP_RANGE.second);
@@ -106,12 +111,12 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
         else
         {
             new_reading.temperature =
-                random_num(temp - 5, temp + 5);
+                random_num(prev_temp - 5, prev_temp + 5);
         }
     }
     else if (new_reading.season == AUTUMN)
     {
-        if (temp == INT_MIN)
+        if (prev_temp == INT_MIN)
         {
             new_reading.temperature =
                 random_num(AUTUMN_TEMP_RANGE.first, AUTUMN_TEMP_RANGE.second);
@@ -119,9 +124,14 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
         else
         {
             new_reading.temperature =
-                random_num(temp - 5, temp + 5);
+                random_num(prev_temp - 5, prev_temp + 5);
         }
     }
+}
+
+void generate_humidity(Weather& new_reading, int prev_humidity)
+{
+
 }
 
 /*
@@ -130,21 +140,18 @@ void generate_temperature(Weather& new_reading, double temp /*= INT_MIN*/)
 std::vector<Weather> generate_weather(int days, Ymd& date)
 {
     std::vector<Weather> weather_data {};
-    double prev_temp = INT_MIN;
+    Weather prev_reading {};
     for (int i = 0; i < days; ++i)
     {
-        generate_pressure(new_reading);
         Weather new_reading {};
         new_reading.date = date;
         select_season(new_reading);
-        if (i == 0)
-            generate_temperature(new_reading);
-        else
-            generate_temperature(new_reading, prev_temp);
-        
-
+        generate_pressure(new_reading, prev_reading.pressure);
+        generate_temperature(new_reading, prev_reading.temperature);
+        generate_wind(new_reading, prev_reading.wind_speed);
+        generate_humidity(new_reading, prev_reading.humidity);
         update_date(date);
-        prev_temp = new_reading.temperature;
+        prev_reading = new_reading;
         weather_data.push_back(new_reading);
     }
     return weather_data;
