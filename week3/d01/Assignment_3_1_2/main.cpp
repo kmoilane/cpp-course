@@ -6,7 +6,8 @@
 
 int main()
 {
-    std::vector<Weather> weather_data { generate_weather(10, { 1997, 7, 1 }) };
+    Ymd start_date { 1997, 7, 1 };
+    std::vector<Weather> weather_data { generate_weather(10, start_date) };
     for (auto data : weather_data)
     {
         std::cout << "Date: " << data.date.day << '.' << data.date.month
