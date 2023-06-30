@@ -8,5 +8,5 @@ add_subdirectory(src)
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC utils)
+target_link_libraries(${PROJECT_NAME} PUBLIC generate_data utils weather_checks)
     
