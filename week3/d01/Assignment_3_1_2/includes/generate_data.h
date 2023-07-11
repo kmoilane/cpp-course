@@ -8,7 +8,7 @@
 #include <climits>
 
 
-std::vector<Weather> generate_weather(int days, Ymd date);
+std::vector<Weather> generate_weather(int days, Weather& prev_reading);
 void generate_temperature(Weather& new_reading, int prev_temp);
 void generate_pressure(Weather& new_reading, int prev_pressure);
 void generate_humidity(Weather& new_reading, int prev_humidity);

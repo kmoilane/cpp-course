@@ -13,7 +13,7 @@ bool is_leap_year(int year)
 
 void update_date(Ymd& date)
 {
-    if (date.month == 12 && date.day == 31)
+    if (date.month >= 12 && date.day >= 31)
     {
         date.year++;
         date.month = 1;
@@ -24,9 +24,9 @@ void update_date(Ymd& date)
     && date.day == 31)
     {
         date.month++;
-        date.day++;
+        date.day = 1;
     }
-    else if ((date.month == 3 || date.month == 6 || date.month == 9
+    else if ((date.month == 3 || date.month == 4 || date.month == 6 || date.month == 9
     || date.month == 11) && date.day == 30)
     {
         date.month++;
@@ -39,7 +39,7 @@ void update_date(Ymd& date)
         else
         {
             date.day = 1;
-            date.month += 1;
+            date.month++;
         }
     }
     else if (date.month == 2 && date.day == 29)
@@ -68,7 +68,7 @@ void generate_pressure(Weather& new_reading, int prev_pressure)
     if (prev_pressure == new_reading.init_value)
     {
         new_reading.pressure =
-            random_num(PRESSURE_RANGE.first, PRESSURE_RANGE.second);
+            random_int(PRESSURE_RANGE.first, PRESSURE_RANGE.second);
         return ;
     }
     int avg_pressue { (PRESSURE_RANGE.first + PRESSURE_RANGE.second) / 2};
@@ -76,11 +76,11 @@ void generate_pressure(Weather& new_reading, int prev_pressure)
     int min_change { 0 };
     int max_change { 5 };
     if (prev_pressure <= avg_pressue - diff)
-        new_reading.pressure = prev_pressure + random_num(min_change, max_change);
+        new_reading.pressure = prev_pressure + random_int(min_change, max_change);
     else if (prev_pressure >= avg_pressue + diff)
-        new_reading.pressure = prev_pressure - random_num(min_change, max_change);
+        new_reading.pressure = prev_pressure - random_int(min_change, max_change);
     else
-        new_reading.pressure = prev_pressure + random_num(-max_change, max_change);
+        new_reading.pressure = prev_pressure + random_int(-max_change, max_change);
 }
 
 void generate_wind(Weather& new_reading, int prev_wind)
@@ -88,14 +88,14 @@ void generate_wind(Weather& new_reading, int prev_wind)
     if (prev_wind == new_reading.init_value)
     {
         new_reading.wind_speed =
-            random_num(WIND_RANGE.first, WIND_RANGE.second);
+            random_int(WIND_RANGE.first, WIND_RANGE.second);
         return ;
     }
  
     int change = 5;
     while (true)
     {
-        int wind = random_num(-change, change);
+        int wind = random_int(-change, change);
         int check_wind_result = check_wind(prev_wind + wind);
         if (check_wind_result == 0 && prev_wind + wind <= WIND_RANGE.second)
         {
@@ -105,52 +105,63 @@ void generate_wind(Weather& new_reading, int prev_wind)
     }
 }
 
+/*
+**  This function generates weather data by first checking if prev temp is
+**  INT_MIN, which means it's first reading. It will then generate temperature
+**  randomly, but within the limits of the current seasons TEMP_RANGE.
+*/
 void generate_temperature(Weather& new_reading, int prev_temp)
 {
-    if (new_reading.season == WINTER)
+    if (prev_temp == INT_MIN)
     {
-        if (prev_temp == INT_MIN)
+        if (new_reading.season == WINTER)
         {
             new_reading.temperature =
-                random_num(WINTER_TEMP_RANGE.first, WINTER_TEMP_RANGE.second);
+                random_int(WINTER_TEMP_RANGE.first, WINTER_TEMP_RANGE.second);
+            return ;
+        }
+        if (new_reading.season == SPRING)
+        {
+            new_reading.temperature =
+                random_int(SPRING_TEMP_RANGE.first, SPRING_TEMP_RANGE.second);
+            return ;
+        }
+        if (new_reading.season == SUMMER)
+        {
+            new_reading.temperature =
+                random_int(SUMMER_TEMP_RANGE.first, SUMMER_TEMP_RANGE.second);
+            return ;
+        }
+        if (new_reading.season == AUTUMN)
+        {
+            new_reading.temperature =
+                random_int(AUTUMN_TEMP_RANGE.first, AUTUMN_TEMP_RANGE.second);
             return ;
         }
     }
-    else if (new_reading.season == SPRING)
-    {
-        if (prev_temp == INT_MIN)
-        {
-            new_reading.temperature =
-                random_num(SPRING_TEMP_RANGE.first, SPRING_TEMP_RANGE.second);
-            return ;
-        }
-    }
-    else if (new_reading.season == SUMMER)
-    {
-        if (prev_temp == INT_MIN)
-        {
-            new_reading.temperature =
-                random_num(SUMMER_TEMP_RANGE.first, SUMMER_TEMP_RANGE.second);
-            return ;
-        }
-    }
-    else if (new_reading.season == AUTUMN)
-    {
-        if (prev_temp == INT_MIN)
-        {
-            new_reading.temperature =
-                random_num(AUTUMN_TEMP_RANGE.first, AUTUMN_TEMP_RANGE.second);
-            return ;
-        }
-    }
+
     while (true)
     {
-        int change = 15;
-        int temp = random_num(prev_temp - change, prev_temp + change);
-        int result = check_temperature(temp);
-        if (result == 0 && check_seasonal_temp(temp, new_reading.season))
+        int change = 10;
+        int temp = random_int(-change, change);
+        int result = check_temperature(prev_temp + temp);
+        if (result == 0 && check_seasonal_temp(prev_temp + temp, new_reading.season))
         {
-            new_reading.temperature = temp;
+            new_reading.temperature = prev_temp + temp;
+            return ;
+        }
+        else if (result == 0)
+        {
+            if (temp < 0)
+                temp *= -1;
+            if (new_reading.season == WINTER)
+                new_reading.temperature = (prev_temp - temp < WINTER_TEMP_RANGE.first) ? (prev_temp + temp) : (prev_temp - temp);
+            else if (new_reading.season == SPRING)
+                new_reading.temperature = (prev_temp - temp < SPRING_TEMP_RANGE.first) ? (prev_temp + temp) : (prev_temp - temp);
+            else if (new_reading.season == SUMMER)
+                new_reading.temperature = (prev_temp - temp < SUMMER_TEMP_RANGE.first) ? (prev_temp + temp) : (prev_temp - temp);
+            else if (new_reading.season == AUTUMN)
+                new_reading.temperature = (prev_temp - temp < AUTUMN_TEMP_RANGE.first) ? (prev_temp + temp) : (prev_temp - temp);
             return ;
         }
     }
@@ -161,13 +172,13 @@ void generate_humidity(Weather& new_reading, int prev_humidity)
     if (prev_humidity == new_reading.init_value)
     {
         new_reading.humidity =
-            random_num(HUMIDITY_RANGE.first, HUMIDITY_RANGE.second);
+            random_int(HUMIDITY_RANGE.first, HUMIDITY_RANGE.second);
         return ;
     }
  
     while (true)
     {
-        int humidity = random_num(-HUMIDITY_RANGE.second, HUMIDITY_RANGE.second);
+        int humidity = random_int(-HUMIDITY_RANGE.second, HUMIDITY_RANGE.second);
         int result = check_humidity(prev_humidity + humidity);
         if (result == 0)
         {
@@ -180,20 +191,21 @@ void generate_humidity(Weather& new_reading, int prev_humidity)
 /*
 **  Generates weather data for x amount of days, starting from the given date
 */
-std::vector<Weather> generate_weather(int days, Ymd date)
+std::vector<Weather> generate_weather(int days, Weather& reading)
 {
     std::vector<Weather> weather_data {};
-    Weather prev_reading {};
+    Weather prev_reading = reading;
+    Ymd date = prev_reading.date;
     for (int i = 0; i < days; ++i)
     {
         Weather new_reading {};
         new_reading.date = date;
+        update_date(date);
         select_season(new_reading);
         generate_pressure(new_reading, prev_reading.pressure);
         generate_temperature(new_reading, prev_reading.temperature);
         generate_wind(new_reading, prev_reading.wind_speed);
         generate_humidity(new_reading, prev_reading.humidity);
-        update_date(date);
         prev_reading = new_reading;
         weather_data.push_back(new_reading);
     }

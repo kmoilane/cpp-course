@@ -5,7 +5,8 @@
 
 namespace fs = std::filesystem;
 
-int random_num(int a, int b);
+int random_int(int a, int b);
 void clear_cin();
+std::string get_last_line(std::ifstream& file_input);
 
 #endif

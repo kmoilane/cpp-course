@@ -14,10 +14,10 @@ constexpr int SPRING = 2;   // March - May
 constexpr int SUMMER = 3;   // June - August
 constexpr int AUTUMN = 4;   // September - October
 
-constexpr std::pair<int, int> WINTER_TEMP_RANGE { -50, 5 };
-constexpr std::pair<int, int> SPRING_TEMP_RANGE { -25, 25 };
-constexpr std::pair<int, int> SUMMER_TEMP_RANGE { 10, 40 };
-constexpr std::pair<int, int> AUTUMN_TEMP_RANGE { -25, 20 };
+constexpr std::pair<int, int> WINTER_TEMP_RANGE { -40, 5 };
+constexpr std::pair<int, int> SPRING_TEMP_RANGE { -20, 20 };
+constexpr std::pair<int, int> SUMMER_TEMP_RANGE { 15, 38 };
+constexpr std::pair<int, int> AUTUMN_TEMP_RANGE { -15, 20 };
 
 constexpr std::pair<int, int> PRESSURE_RANGE { 995, 1015 };
 constexpr std::pair<int, int> HUMIDITY_RANGE { 10, 80 };
@@ -44,7 +44,7 @@ struct Weather
     int     humidity {init_value};      // 0%-100%
     int     wind_speed {init_value};    // m/s
     int     season {init_value};        // 1-4
-    Ymd     date {};                    // Date in year mont day format
+    Ymd     date {init_value, init_value, init_value};   // Date in year mont day format
 };
 
 int check_wind(int wind);
