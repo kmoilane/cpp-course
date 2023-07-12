@@ -11,6 +11,9 @@ bool is_leap_year(int year)
     return false;
 }
 
+/*
+** Updates the date (year, month day). Takes leap year into account as well.
+*/
 void update_date(Ymd& date)
 {
     if (date.month >= 12 && date.day >= 31)
@@ -51,6 +54,9 @@ void update_date(Ymd& date)
         date.day++;
 }
 
+/*
+**  Selects season based on the month
+*/
 void select_season(Weather& reading)
 {
     if (reading.date.month == 12 || reading.date.month == 1 || reading.date.month == 2)
@@ -63,6 +69,10 @@ void select_season(Weather& reading)
         reading.season = AUTUMN;
 }
 
+/*
+**  Generates some semi random pressure from the pressure range
+**  and previous pressure
+*/
 void generate_pressure(Weather& new_reading, int prev_pressure)
 {
     if (prev_pressure == new_reading.init_value)
@@ -83,6 +93,9 @@ void generate_pressure(Weather& new_reading, int prev_pressure)
         new_reading.pressure = prev_pressure + random_int(-max_change, max_change);
 }
 
+/*
+**  Generates semi random wind from the wind range and previous wind
+*/
 void generate_wind(Weather& new_reading, int prev_wind)
 {
     if (prev_wind == new_reading.init_value)
@@ -167,6 +180,10 @@ void generate_temperature(Weather& new_reading, int prev_temp)
     }
 }
 
+/*
+**  Generates semi random humitidty from the
+**  humidity range and previous humidity
+*/
 void generate_humidity(Weather& new_reading, int prev_humidity)
 {
     if (prev_humidity == new_reading.init_value)
@@ -193,21 +210,26 @@ void generate_humidity(Weather& new_reading, int prev_humidity)
 */
 std::vector<Weather> generate_weather(int days, Weather& reading)
 {
-    std::vector<Weather> weather_data {};
     Weather prev_reading = reading;
+    Ymd current_date = get_current_date_ymd();
     Ymd date = prev_reading.date;
+    std::vector<Weather> weather_data;
     for (int i = 0; i < days; ++i)
     {
-        Weather new_reading {};
-        new_reading.date = date;
-        update_date(date);
-        select_season(new_reading);
-        generate_pressure(new_reading, prev_reading.pressure);
-        generate_temperature(new_reading, prev_reading.temperature);
-        generate_wind(new_reading, prev_reading.wind_speed);
-        generate_humidity(new_reading, prev_reading.humidity);
-        prev_reading = new_reading;
-        weather_data.push_back(new_reading);
+        if (date_is_older(date, current_date) || date_is_equal(date, current_date))
+        {
+            Weather new_reading {};
+            new_reading.date = date;
+            update_date(date);
+            select_season(new_reading);
+            generate_pressure(new_reading, prev_reading.pressure);
+            generate_temperature(new_reading, prev_reading.temperature);
+            generate_wind(new_reading, prev_reading.wind_speed);
+            generate_humidity(new_reading, prev_reading.humidity);
+            prev_reading = new_reading;
+            weather_data.push_back(new_reading);
+        }
+        else break ;
     }
     return weather_data;
 }

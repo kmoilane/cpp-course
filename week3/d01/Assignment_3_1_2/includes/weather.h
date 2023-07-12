@@ -4,10 +4,9 @@
 #include <chrono>
 #include <iostream>
 #include <climits>
+#include <vector>
 
-constexpr static int BELOW_POSSIBLE_ERROR = 1;
-constexpr static int ABOVE_POSSIBLE_ERROR = 2;
-constexpr static int WORLD_RECORD = 3;
+constexpr static int ERROR_CODE = 1;
 
 constexpr int WINTER = 1;   // December - February
 constexpr int SPRING = 2;   // March - May
@@ -52,5 +51,15 @@ int check_humidity(int humidity);
 int check_temperature(int temperature);
 int check_pressure(int pressure);
 bool check_seasonal_temp(int temp, int season);
+Ymd get_current_date_ymd();
+int log_weather_readings(std::vector<Weather>& weather_data);
+Weather log_line_to_reading(std::string& line);
+int ui_loop();
+void print_logs();
+void print_ui_menu();
+void current_weather();
+void print_weather(Weather& weather);
+Weather get_prev_reading();
+Weather find_reading(Ymd& date);
 
 #endif

@@ -6,9 +6,9 @@
 int check_wind(int wind)
 {
     if (wind < 0)
-        return BELOW_POSSIBLE_ERROR;
+        return ERROR_CODE;
     else if (wind > 113)
-        return WORLD_RECORD;
+        return ERROR_CODE;
     return 0;
 }
 
@@ -18,9 +18,9 @@ int check_wind(int wind)
 int check_humidity(int humidity)
 {
     if (humidity > HUMIDITY_RANGE.second)
-        return ABOVE_POSSIBLE_ERROR;
+        return ERROR_CODE;
     else if (humidity < HUMIDITY_RANGE.first)
-        return BELOW_POSSIBLE_ERROR;
+        return ERROR_CODE;
     return 0;
 }
 
@@ -30,9 +30,9 @@ int check_humidity(int humidity)
 int check_temperature(int temperature)
 {
     if (temperature < ABSOLUTE_ZERO)
-        return BELOW_POSSIBLE_ERROR;
+        return ERROR_CODE;
     else if (temperature > HIGHEST_MEASURED_TEMP)
-        return WORLD_RECORD;
+        return ERROR_CODE;
     return 0;
 }
 
@@ -42,7 +42,7 @@ int check_temperature(int temperature)
 int check_pressure(int pressure)
 {
     if (pressure < LOWEST_MEASURED_PRESSURE || pressure > HIGHEST_MEASURED_PRESSURE)
-        return WORLD_RECORD;
+        return ERROR_CODE;
     return 0;
 }
 
