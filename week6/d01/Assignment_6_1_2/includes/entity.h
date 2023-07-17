@@ -10,9 +10,9 @@ enum class Tag {
 class Entity {
     public:
         
-        void set_union(const int i);
-        void set_union(const char c);
-        void set_union(const double d);
+        void set_union(const int value);
+        void set_union(const char value);
+        void set_union(const double value);
         void print_union_type() const noexcept;
         void print_union_value() const noexcept;
 

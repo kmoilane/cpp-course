@@ -2,18 +2,18 @@
 #include <cassert>
 #include <iostream>
 
-void Entity::set_union(const int i) {
-    id = i;
+void Entity::set_union(const int value) {
+    id = value;
     tag = Tag::robot;
 }
 
-void Entity::set_union(const char c) {
-    letter = c;
+void Entity::set_union(const char value) {
+    letter = value;
     tag = Tag::human;
 }
 
-void Entity::set_union(const double d) {
-    wavelength = d;
+void Entity::set_union(const double value) {
+    wavelength = value;
     tag = Tag::alien;
 }
 
