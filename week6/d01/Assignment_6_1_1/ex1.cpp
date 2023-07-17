@@ -3,6 +3,9 @@
 #include <iostream>
 #include <random>
 
+/*
+**  Generates and return random integer between a and b (inclusive)
+*/
 int random_num(int a, int b)
 {
     std::random_device rd{};
@@ -15,6 +18,9 @@ int random_num(int a, int b)
     return distr(mt);
 }
 
+/*
+**  Generates random Status using the  underlying integral values of enums
+*/
 Status generate_random_status()
 {
     return static_cast<Status>(random_num(0, STATUS_COUNT - 1));
