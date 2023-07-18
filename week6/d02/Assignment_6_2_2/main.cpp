@@ -3,7 +3,7 @@
 
 int main()
 {
-    CFile file {"test_file"};
+    CFile file {"test_file", "a+"};
     std::string line = file.next_line();
     while (!line.empty())
     {
@@ -11,6 +11,5 @@ int main()
         line = file.next_line();
     }
     std::cout << file.name() << " is " << file.size() << " bytes\n";
-
     return 0;
 }

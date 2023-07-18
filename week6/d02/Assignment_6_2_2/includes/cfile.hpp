@@ -7,7 +7,9 @@
 
 class CFile {
     public:
+        CFile() = default;
         CFile(std::string filename);
+        CFile(std::string filename, std::string mode);
         ~CFile();
 
         std::string name();
@@ -16,8 +18,11 @@ class CFile {
 
     private:
         std::string file_name;
+        std::string open_mode {"r"};
         size_t file_size;
         FILE* file_handle;
+
+        bool is_valid_mode(std::string mode);
 };
 
 
