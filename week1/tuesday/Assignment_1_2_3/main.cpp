@@ -33,13 +33,15 @@ int get_age(std::string name)
 {
 
     int age { 0 };
+    int min_age { 0 };
+    int max_age { 125 };
     while (true)
     {
         std::cout << "Enter " << name << "'s age: ";
         std::cin >> age;
         if (!std::cin)
             clear_cin();
-        if (age > 0 && age < 125)
+        if (age > min_age && age < max_age)
             return age;
         std::cout << "Invalid age! Try again... :)\n";
     }
@@ -69,13 +71,15 @@ std::vector<Student> create_database(int amount)
 
     for (size_t i = 0; i < static_cast<size_t>(amount); ++i)
     {
-        students.push_back(Student());
-        students[i].name = get_name();
-        students[i].age = get_age(students[i].name);
-        students[i].grade = get_grade(students[i].name);
-        std::cout << '\n';
+        Student student {};
+        student.name = get_name();
+        student.age = get_age(student.name);
+        student.grade = get_grade(student.name);
+        
+        students.push_back(student);
+
+        std::cout << '\n'; //New line after getting the user input
     }
-    students.shrink_to_fit();
     return students;
 }
 
