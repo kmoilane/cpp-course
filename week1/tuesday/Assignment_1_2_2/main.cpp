@@ -1,47 +1,47 @@
 #include <iostream>
 #include <string>
 
-bool has_punct(std::string pass)
+bool has_punct(const std::string& pass)
 {
     for (size_t i = 0; i < pass.size(); ++i)
     {
-        if (std::ispunct(static_cast<unsigned char>(pass[i])))
+        if (std::ispunct(pass[i]))
             return true;
     }
     return false;
 }
 
-bool has_digit(std::string pass)
+bool has_digit(const std::string& pass)
 {
     for (size_t i = 0; i < pass.size(); ++i)
     {
-        if (std::isdigit(static_cast<unsigned char>(pass[i])))
+        if (std::isdigit(pass[i]))
             return true;
     }
     return false;
 }
 
-bool has_lowercase(std::string pass)
+bool has_lowercase(const std::string& pass)
 {
     for (size_t i = 0; i < pass.size(); ++i)
     {
-        if (std::islower(static_cast<unsigned char>(pass[i])))
+        if (std::islower(pass[i]))
             return true;
     }
     return false;
 }
 
-bool has_uppercase(std::string pass)
+bool has_uppercase(const std::string& pass)
 {
     for (size_t i = 0; i < pass.size(); ++i)
     {
-        if (std::isupper(static_cast<unsigned char>(pass[i])))
+        if (std::isupper(pass[i]))
             return true;
     }
     return false;
 }
 
-bool verify_password(std::string pass)
+bool verify_password(const std::string& pass)
 {
     if (pass.size() < 8)
     {
