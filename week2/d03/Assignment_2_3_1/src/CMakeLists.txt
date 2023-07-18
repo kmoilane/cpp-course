@@ -1,0 +1,7 @@
+add_library(ex1 STATIC ex1.cpp)
+add_library(ex2 STATIC ex2.cpp)
+add_library(ex3 STATIC ex3.cpp)
+add_library(ex4 STATIC ex4.cpp)
+add_library(ex5 STATIC ex5.cpp)
+add_library(ex7 STATIC ex7.cpp)
+add_library(ex8 STATIC ex8.cpp)
