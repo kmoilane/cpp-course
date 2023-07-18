@@ -1,4 +1,0 @@
-
-# Wednesday
-
-## Scope and lifetime
