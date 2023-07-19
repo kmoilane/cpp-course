@@ -7,13 +7,10 @@
 class Posint {
     public:
         Posint() = default;
-
         Posint(int val);
-
         Posint(const Posint& b) : value(b.value) {};
-
+        
         Posint operator+(const Posint& rhs);
-
         Posint operator-(const Posint& rhs);
 
         void print_value() { std::cout << value; }
