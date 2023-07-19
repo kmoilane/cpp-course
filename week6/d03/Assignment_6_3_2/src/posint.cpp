@@ -17,18 +17,20 @@ const int& Posint::get_value() const noexcept
 }
 
 Posint Posint::operator+(const Posint& rhs) {
-    Posint a;
-    a.value = value + rhs.value;
-    if (a.value < 0)
-        a.value = INT_MAX;
-    return a;
+    int64_t result;
+    result = value + rhs.value;
+    if (result < 0)
+        return Posint { 0 };
+    else if (result <= std::numeric_limits<int>::max())
+        return Posint { static_cast<int>(result) };
+    return Posint { std::numeric_limits<int>::max() };
 }
 
 Posint Posint::operator-(const Posint& rhs)
 {
     Posint a;
     a.value = value - rhs.value;
-    if (a.value < 0)
+    if (a.value < 0 || (rhs.value > value))
         a.value = 0;
     return a;
 }
@@ -37,7 +39,9 @@ Posint add(const Posint& num1, const Posint& num2)
 {
     int64_t result =
         static_cast<int64_t>(num1.value) + static_cast<int64_t>(num2.value);
-    if (result <= std::numeric_limits<int>::max())
+    if (result < 0)
+        return Posint { 0 };
+    else if (result <= std::numeric_limits<int>::max())
         return Posint{static_cast<int>(result)};
     else
         return Posint{std::numeric_limits<int>::max()};
