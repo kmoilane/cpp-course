@@ -4,7 +4,7 @@
 int main()
 {
     int max = std::numeric_limits<int>::max();
-    int min =std::numeric_limits<int>::min();
+    int min = std::numeric_limits<int>::min();
     myspace::Point_3D v1{5, 6, 7};
     myspace::Point_3D v2{1, 1, 1};
     myspace::Point_3D v3{3, 3, 3};
