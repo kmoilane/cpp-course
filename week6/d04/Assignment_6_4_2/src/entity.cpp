@@ -1,3 +1,4 @@
+#include "../includes/cfile.hpp"
 #include "../includes/entity.hpp"
 #include <cassert>
 #include <charconv>
@@ -137,4 +138,25 @@ Entity Entity::create(const std::string& str)
         return Entity(atof(str.c_str()));
     else
         return Entity(str[0]);
+}
+
+std::vector<Entity> read_entities(std::string file_name)
+{
+    CFile file(file_name, "r");
+    std::vector<Entity> entities {};
+    std::string line = file.next_line();
+    while (!line.empty())
+    {
+        entities.push_back(Entity::create(line));
+        line = file.next_line();
+    }
+    return entities;
+}
+
+void print_entities(std::vector<Entity> entities)
+{
+    for (Entity entity : entities)
+    {
+        std::cout << entity;
+    }
 }

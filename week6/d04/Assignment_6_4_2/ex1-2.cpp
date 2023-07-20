@@ -7,34 +7,16 @@
 */
 int main()
 {
-    Entity entity;
+    Entity entity = Entity::create("55");
 
     entity.set_union('K');
-    std::cout << "Union type: ";
-    entity.print_union_type();
-    if(entity.current_type() == Tag::human)
-        std::cout << " - True!";
-    std::cout << "\nUnion value: ";
-    entity.print_union_value();
-    std::cout << '\n';
+    std::cout << entity;
 
     entity.set_union(999);
-    std::cout << "Union type: ";
-    entity.print_union_type();
-    if(entity.current_type() == Tag::robot)
-        std::cout << " - True!";
-    std::cout << "\nUnion value: ";
-    entity.print_union_value();
-    std::cout << '\n';
+    std::cout << entity;
 
     entity.set_union(660.545);
-    std::cout << "Union type: ";
-    entity.print_union_type();
-    if(entity.current_type() == Tag::alien)
-        std::cout << " - True!";
-    std::cout << "\nUnion value: ";
-    entity.print_union_value();
-    std::cout << '\n';
+    std::cout << entity;
 
     std::cout << entity;
     std::cout << Entity::create("69");
