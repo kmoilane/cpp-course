@@ -11,7 +11,7 @@ namespace myspace
 class Myclass
 {
     public:
-        void hello() { std::cout << "hello from Myclass\n"; }
+        static void hello() { std::cout << "hello from Myclass\n"; }
     private:
 };
 

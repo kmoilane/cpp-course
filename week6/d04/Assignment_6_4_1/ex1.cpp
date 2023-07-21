@@ -3,7 +3,6 @@
 int main()
 {
     myspace::hello();
-    Myclass obj;
-    obj.hello();
+    Myclass::hello();
     return 0;
 }
