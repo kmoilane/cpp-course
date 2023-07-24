@@ -5,13 +5,13 @@
 
 namespace ex1 {
     template <typename T, typename U>
-    constexpr bool is_same_type(const T&, const U&) noexcept
+    constexpr bool is_same_type(T, U) noexcept
     {
         return false;
     }
 
     template <typename T>
-    constexpr bool is_same_type(const T&, const T&) noexcept
+    constexpr bool is_same_type(T, T) noexcept
     {
         return true;
     }
