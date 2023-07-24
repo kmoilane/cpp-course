@@ -1,6 +1,8 @@
 #ifndef TYPECHECK_HPP
 #define TYPECHECK_HPP
 
+#include <type_traits>
+
 namespace ex1 {
     template <typename T, typename U>
     constexpr bool is_same_type(const T&, const U&) noexcept
@@ -12,6 +14,15 @@ namespace ex1 {
     constexpr bool is_same_type(const T&, const T&) noexcept
     {
         return true;
+    }
+}
+
+namespace ex2 {
+    template <typename T>
+    constexpr bool can_decay() noexcept
+    {
+        bool res = std::is_same_v<std::decay_t<T>, T>;
+        return !res;
     }
 }
 
