@@ -24,5 +24,19 @@ int main()
     std::cout << "width: " << size.width << '\n';
     std::cout << "height: " << size.height << '\n';
     std::cout << "1D size: " << grid.size_1D() << '\n';
+
+    Grid::Grid_2D<int> grid2{3, 3, {1, 2, 3, 4, 5, 6, 7, 8, 9}};
+    std::cout << '\n';
+    grid2.print_grid();
+    grid2.resize(5, 5);
+    std::cout << '\n';
+    grid2.print_grid();
+    grid2.resize(2, 2);
+    std::cout << '\n';
+    grid2.print_grid();
+
+    std::cout << '\n';
+    grid.resize(1, 2);
+    grid.print_grid();
     return 0;
 }

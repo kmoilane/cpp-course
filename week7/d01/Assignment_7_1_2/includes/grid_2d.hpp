@@ -22,7 +22,7 @@ namespace Grid
 
     /*
     **  Custom container to hold 2D grid. Implemented with vector as the
-    **  underlying 
+    **  underlying container
     */
     template <typename T>
     class Grid_2D
@@ -54,6 +54,8 @@ namespace Grid
             const T& cback() const { return grid.back(); }
             const const_iterator cbegin() const { return grid.begin(); }
             const const_iterator cend() const { return grid.end(); }
+            
+            void resize(int width_, int height_);
             void print_grid();
             int32_t size_1D() { return size1D; }
             Size_2D size_2D() { return size2D; }
@@ -67,6 +69,7 @@ namespace Grid
             Size_2D         size2D;
             storage_type    grid;
     };
+
 
     template <typename T>
     Grid_2D<T>::Grid_2D(int width_, int height_)
@@ -132,6 +135,28 @@ namespace Grid
             throw std::out_of_range("Out of range");
         return grid[pos];
     }
+
+    template <typename T>
+    void Grid_2D<T>::resize(int width_, int height_)
+    {
+        if (width_ <= 0 || height_ <= 0)
+            throw std::invalid_argument("Width and height must be over 0");
+            
+        storage_type new_grid(width_ * height_);
+        int w = std::min(width, width_);
+        int h = std::min(height, height_);
+
+        for (int i = 0; i < w * h; i++)
+        {
+            new_grid[(i / w) * width_ + (i % w)] = grid[(i / w) * width + (i % w)];
+        }
+        width = width_;
+        height = height_;
+        size1D = width * height;
+        size2D.height = height;
+        size2D.width = width;
+        grid = std::move(new_grid);
+    }
     
     template <typename T>
     void Grid_2D<T>::print_grid()
@@ -145,6 +170,4 @@ namespace Grid
         std::cout << '\n';
     }
 }
-
-
 #endif
