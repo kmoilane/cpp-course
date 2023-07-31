@@ -11,15 +11,10 @@
 **  Exercise 1
 */
 void fun() {}
-/*
-**  End of Exercise 1
-*/
 
 /*
 ** Exercise 3
 */
-
-
 template <typename T>
 bool container_is_contiguous(const T& container) {
     if (container.empty())
@@ -40,10 +35,6 @@ bool container_is_contiguous(const T& container) {
 
     return true;
 }
-
-/*
-**  End of Exericse 3
-*/
 
 int main()
 {
