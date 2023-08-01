@@ -7,16 +7,23 @@ class Counter {
     public:
         Counter() { ++instance_count; }
         Counter(const Counter& other) = delete;
+        Counter& Operator=(Counter&& other) = delete;
         Counter(Counter&& other)
         {
             other.is_moved = true;
+        }
+        Counter& operator=(Counter&& other)
+        {
+            if (this != &other)
+                other.is_moved = true;
+            return *this;
         }
         ~Counter()
         { 
             if (!is_moved)
                 --instance_count;
         }
-        static size_t get_count() {return instance_count;}
+        static size_t get_count() { return instance_count; }
 
     private:
         inline static size_t instance_count;

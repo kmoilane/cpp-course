@@ -47,6 +47,11 @@ int main()
         std::cout << "instances: 1 = " << Counter::get_count() << '\n';
     }
     std::cout << "instances: 1 = " << Counter::get_count() << '\n';
+    {
+        Counter c2 = std::move(c1);
+        std::cout << "instances: 1 = " << Counter::get_count() << '\n';
+    }
+    std::cout << "instances: 0 = " << Counter::get_count() << '\n';
 
     return 0;
 }
