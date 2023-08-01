@@ -7,7 +7,7 @@ class Counter {
     public:
         Counter() { ++instance_count; }
         Counter(const Counter& other) = delete;
-        Counter& Operator=(Counter&& other) = delete;
+        Counter& operator=(const Counter&& other) = delete;
         Counter(Counter&& other)
         {
             other.is_moved = true;
