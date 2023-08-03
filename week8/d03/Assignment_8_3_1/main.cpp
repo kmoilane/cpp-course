@@ -17,7 +17,6 @@ int main()
     std::cout << '\n';
     std::cout << "first element: " << *arr.begin() << '\n';
     std::cout << "last element: " << *(arr.end() - 1) << '\n';
-    std::cout << "one past last element: " << *arr.end() << '\n';
     std::cout << "Size: " << arr.size() << '\n';
     oma::Heap_array arr1 = arr;
 
@@ -29,19 +28,10 @@ int main()
     std::cout << '\n';
     std::cout << "first element: " << *arr1.begin() << '\n';
     std::cout << "last element: " << *(arr1.end() - 1) << '\n';
-    std::cout << "one past last element: " << *arr1.end() << '\n';
     std::cout << "Size: " << arr1.size() << '\n';
 
     oma::Heap_array arr2 = std::move(arr);
     std::cout << "\nArr2:\n";
-    for (size_t i = 0; i < arr2.size(); i++)
-    {
-        std::cout << arr2[i] << ',';
-    }
-    std::cout << '\n';
-    std::cout << "first element: " << *arr2.begin() << '\n';
-    std::cout << "last element: " << *(arr2.end() - 1) << '\n';
-    std::cout << "one past last element: " << *arr2.end() << '\n';
     std::cout << "Size: " << arr2.size() << '\n';
 
     oma::Heap_array<int, 0> arr3;
@@ -53,8 +43,6 @@ int main()
 
     std::cout << "first element address: " << arr3.begin() << '\n';
     std::cout << "one before first element address: " << (arr3.end() - 1) << '\n';
-    std::cout << "one before last element address: " << (arr3.begin() - 1) << '\n';
-    std::cout << "one past last element address: " << arr3.end() << '\n';
     std::cout << "Size: " << arr3.size() << '\n';
 
     oma::Heap_array<int, 3> arr4 {5, 3, 6};
