@@ -4,7 +4,7 @@
 
 TEST_CASE("Heap_array tests")
 {
-    SUBCASE("Testing default constructor")
+    SUBCASE("Testing default constructor and basic functions")
     {
         oma::Heap_array<int, 10> arr;
         CHECK(arr.size() == 10);
@@ -23,9 +23,9 @@ TEST_CASE("Heap_array tests")
     SUBCASE("Testing copy constructor and assignment")
     {
         oma::Heap_array<char, 4> arr{'t', 'e', 's', 't'};
-        oma::Heap_array<char, 4> arr1{' ', ' ', ' ', ' '};
+        oma::Heap_array<char, 4> arr1{'f', 'f', 'f', 'f'};
         CHECK(arr[0] == 't');
-        CHECK(arr1[0] == ' ');
+        CHECK(arr1[0] == 'f');
         arr1 = arr;
         CHECK(arr1[0] == 't');
         CHECK(arr1[1] == 'e');
@@ -46,5 +46,24 @@ TEST_CASE("Heap_array tests")
         CHECK(arr1[1] == 'e');
         CHECK(arr1[2] == 's');
         CHECK(arr1[3] == 't');
+        oma::Heap_array<char, 4> arr2{'l', 'l', 'k', 'k'};
+        arr2 = std::move(arr1);
+        CHECK(arr2[0] == 't');
+        CHECK(arr2[1] == 'e');
+        CHECK(arr2[2] == 's');
+        CHECK(arr2[3] == 't');
+    }
+    SUBCASE("Testing == and != and swap")
+    {
+        oma::Heap_array<int, 2> arr{99, 98};
+        oma::Heap_array<int, 2> arr1(arr);
+        CHECK((arr == arr1) == true);
+        CHECK((arr != arr1) == false);
+        arr[1] = 99;
+        CHECK(arr[1] == 99);
+        CHECK(arr1[1] != 99);
+        arr.swap(arr1);
+        CHECK(arr[1] != 99);
+        CHECK(arr1[1] == 99);
     }
 }

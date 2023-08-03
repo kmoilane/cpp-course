@@ -21,7 +21,7 @@ namespace oma
             Heap_array(std::initializer_list<T> initList);
             Heap_array(const Heap_array& other);
             Heap_array(Heap_array&& other);
-            Heap_array& operator=(const Heap_array& other);
+            Heap_array& operator=(Heap_array& other);
             Heap_array& operator=(Heap_array&& other);
             T& operator[](size_t index);
             const T& operator[](size_t index) const;
@@ -46,10 +46,7 @@ namespace oma
     Heap_array<T, Size>::Heap_array(const Heap_array& other)
     {
         ptr = new T[Size];
-        for (size_t i = 0; i < Size; i++)
-        {
-            ptr[i] = other.ptr[i];
-        }
+        std::copy(other.ptr, other.ptr + Size, ptr);
     }
 
     template <typename T, size_t Size>
@@ -57,18 +54,16 @@ namespace oma
     {
         if (ptr != other.ptr)
         {
+            delete[] ptr;
             ptr = other.ptr;
             other.ptr = nullptr;
         }
     }
 
     template <typename T, size_t Size>
-    Heap_array<T, Size>& Heap_array<T, Size>::operator=(const Heap_array& other)
+    Heap_array<T, Size>& Heap_array<T, Size>::operator=(Heap_array& other)
     {
-        for (size_t i = 0; i < Size; i++)
-        {
-            ptr[i] = other.ptr[i];
-        }
+        this->swap(other);
         return *this;
     }
 
@@ -77,6 +72,7 @@ namespace oma
     {
         if (ptr != other.ptr)
         {
+            delete[] ptr;
             ptr = other.ptr;
             other.ptr = nullptr;
         }
@@ -143,9 +139,7 @@ namespace oma
             throw std::invalid_argument("Initializer list size must match Heap_array size");
 
         ptr = new T[Size];
-        size_t i = 0;
-        for (const auto& element : list)
-            ptr[i++] = element;
+        std::copy(list.begin(), list.end(), ptr);
     }
 
 }
