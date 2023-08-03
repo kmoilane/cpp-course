@@ -39,7 +39,7 @@ namespace oma
             bool operator!=(const Heap_array& other);
 
         private:
-            T* ptr;
+            T* ptr { nullptr };
     };
 
     template <typename T, size_t Size>
