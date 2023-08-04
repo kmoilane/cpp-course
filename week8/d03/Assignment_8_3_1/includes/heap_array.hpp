@@ -17,7 +17,7 @@ namespace oma
             using const_iterator = const T*;
             using size_type = size_t;
 
-            Heap_array() { ptr = new T[Size]; }
+            Heap_array() { ptr = new T[Size] {}; }
             Heap_array(std::initializer_list<T> initList);
             Heap_array(const Heap_array& other);
             Heap_array(Heap_array&& other);
@@ -45,7 +45,7 @@ namespace oma
     template <typename T, size_t Size>
     Heap_array<T, Size>::Heap_array(const Heap_array& other)
     {
-        ptr = new T[Size];
+        ptr = new T[Size] {};
         std::copy(other.ptr, other.ptr + Size, ptr);
     }
 
