@@ -1,7 +1,9 @@
 # Assignment_9_1_2
 
 
-This is more about treating functions as template arguments.  It can be useful every now and then to pass function directly as a template argument.  You won't need <functional> for these.
+This is more about treating functions as template arguments.  It can be useful
+every now and then to pass function directly as a template argument.  You won't
+need `<functional> ` for these.
 
 Helpful code for exercise:
 
