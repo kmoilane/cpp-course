@@ -4,7 +4,7 @@
 
 struct Human
 {
-    char letter;
+    std::string name;
 };
 
 struct Robot
@@ -19,10 +19,10 @@ struct Alien
 
 using my_variant = std::variant<Human, Robot, Alien>;
 
-void print_variant(my_variant variant)
+void print_variant(const my_variant& variant)
 {
     if (std::holds_alternative<Human>(variant))
-        std::cout << "Human : " << std::get<Human>(variant).letter << '\n';
+        std::cout << "Human : " << std::get<Human>(variant).name << '\n';
     else if (std::holds_alternative<Robot>(variant))
         std::cout << "Robot : " << std::get<Robot>(variant).id << '\n';
     else if (std::holds_alternative<Alien>(variant))
@@ -33,7 +33,7 @@ int main()
 {
     my_variant variant;
     
-    variant = Human{'h'};
+    variant = Human{"Harry"};
     print_variant(variant);
     variant = Alien{42.42};
     print_variant(variant);
