@@ -9,14 +9,14 @@ int main()
     std::string utf8String{"u8äöå🍍"}; // UTF-8 encoded string
     utf8::Utf8String normstr{"Testing string using ascii characters\n"};
     
-    utf8::Utf8Iterator begin0(normstr.begin());
-    utf8::Utf8Iterator end0(normstr.end());
+    //utf8::Utf8Iterator begin0(normstr.begin());
+    //utf8::Utf8Iterator end0(normstr.end());
 
-
+/*
     for (utf8::Utf8Iterator it = begin0; it != end0; ++it) {
         std::cout << *it;
     }
-
+*/
     utf8::Utf8Iterator begin(&(*utf8String.begin()));
     utf8::Utf8Iterator end(&(*utf8String.end()));
 

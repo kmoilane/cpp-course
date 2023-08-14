@@ -19,7 +19,7 @@ class Utf8Iterator
         Utf8Iterator() = default;
         Utf8Iterator(const std::string::pointer& it) : mptr(&(*it)) {}
         Utf8Iterator(const std::string::iterator& it) : mptr(&(*it)) {}
-        Utf8Iterator(const iterator& it) : mptr(&(*it)) {}
+        //Utf8Iterator(const iterator& it) : mptr(&(*it)) {}
         //Utf8Iterator(const const_iterator& it) : mptr(&(*it)) {}
         value_type operator*() { return *mptr; }
         Utf8Iterator operator++() { ++mptr; return *this; }
@@ -39,7 +39,7 @@ class Utf8String
         //iterator begin() const { return iterator(utf8_str.begin()); }
         //iterator end() const { return iterator(utf8_str.end()); }
 
-    std::size_t size() const
+    /*std::size_t size() const
     {
         std::size_t count = 0;
         for (Utf8Iterator it = begin(); it != end(); ++it)
@@ -47,7 +47,7 @@ class Utf8String
             ++count;
         }
         return count;
-    }
+    }*/
 
     private:
         const std::string& utf8_str;
