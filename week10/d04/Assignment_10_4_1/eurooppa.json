@@ -1,0 +1,16 @@
+{
+    "pohjoismaat" :
+    {
+        "Suomi" : "Helsinki",
+        "Ruotsi" : "Tukholma",
+        "Norja" : "Oslo",
+        "Tanksa" : "Kööpenhamina",
+        "Islanti" : "Reykjavik"
+    },
+    "baltianmaat" :
+    {
+        "Viro" : "Tallinna",
+        "Latvia" : "Riika",
+        "Liettua" : "Vilna"
+    }
+}
