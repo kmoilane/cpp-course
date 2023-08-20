@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(include)
 
 # Add the main executable
-add_executable(main_executable main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 # Set the output directory for the main executable
 set_target_properties(main_executable PROPERTIES
@@ -23,6 +23,7 @@ set_target_properties(test_executable PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests
 )
 
+
 # Add the include directories for the test executable
 target_include_directories(test_executable PRIVATE test/includes)
 
@@ -34,3 +35,10 @@ FetchContent_Declare(
     GIT_TAG master
 )
 FetchContent_MakeAvailable(doctest)
+    
+add_link_options(-fsanitize=address)
+    
+add_compile_options(-fsanitize=address)
+    
+    
+    
